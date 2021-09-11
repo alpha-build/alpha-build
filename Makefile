@@ -38,6 +38,7 @@ include build-support/make/core/bash/format.mk
 include build-support/make/core/bash/lint.mk
 include build-support/make/core/bash/test.mk
 
+.PHONY: fmt-sh lint-sh test-sh
 fmt-sh: shfmt
 lint-sh: shellcheck shfmt-check
 test-sh: bats
@@ -57,6 +58,7 @@ include build-support/make/core/python/clean.mk
 include build-support/make/extensions/python/clean.mk
 include build-support/make/core/python/pre-commit.mk
 
+.PHONY: fmt-py fmt-check-py lint-py test-py clean-py
 fmt-py: docformatter isort autoflake black flynt
 fmt-check-py: autoflake-check docformatter-check isort-check black-check flynt-check
 lint-py: mypy flake8 bandit fmt-check-py pylint
@@ -68,6 +70,7 @@ include build-support/make/config/jupyter.mk
 include build-support/make/core/jupyter/format.mk
 include build-support/make/core/jupyter/lint.mk
 
+.PHONY: fmt-nb fmt-check-nb lint-nb
 fmt-nb: nbstripout jblack
 fmt-check-nb: jblack-check
 lint-nb: flake8-nb fmt-check-nb
@@ -76,6 +79,7 @@ lint-nb: flake8-nb fmt-check-nb
 include build-support/make/core/haskell/lint.mk
 include build-support/make/core/haskell/clean.mk
 
+.PHONY: lint-hs clean-hs
 lint-hs: hlint
 clean-hs: clean-hio
 
@@ -83,15 +87,10 @@ clean-hs: clean-hio
 include build-support/make/config/yaml.mk
 include build-support/make/core/yaml/format.mk
 include build-support/make/core/yaml/lint.mk
-# Prometheus YAML
-include build-support/make/extensions/prometheus/lint.mk
-# Alertmanager YAML
-include build-support/make/extensions/alertmanager/lint.mk
 
+.PHONY: fmt-yml lint-yml
 fmt-yml: dos2unix-yml
 lint-yml: yamllint
-lint-prometheus: promtool-check-rules
-lint-alertmanager: amtool-check-config
 
 # Markdown
 include build-support/make/config/markdown.mk
@@ -99,10 +98,13 @@ include build-support/make/core/markdown/env.mk
 include build-support/make/core/markdown/format.mk
 include build-support/make/core/markdown/lint.mk
 
+.PHONY: fmt-md lint-md
 fmt-md: markdownlint-fmt
 lint-md: markdownlint
 
 # Cross-language BUILD goals
+.PHONY: env-default-replicate env-default-upgrade fmt lint type-check test clean
+
 env-default-replicate: env-py-default-replicate env-sh-default-replicate env-md-default-replicate
 env-default-upgrade: env-py-default-upgrade env-sh-default-upgrade env-md-default-upgrade
 
@@ -119,6 +121,8 @@ test: test-py test-sh
 clean: clean-py clean-hs
 
 # OTHER ----------------------------------------------------------------------------------------------------------------
+.PHONY: pre-commit install-pre-commit-hook uninstall-pre-commit-hook
+
 # Run as `make pre-commit since=--cached`
 pre-commit: lint pre-commit-tool
 
