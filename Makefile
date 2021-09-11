@@ -29,7 +29,7 @@ PY_LIB_NAMES=$(foreach path,$(utils),$(shell basename $(path)))  # to be able to
 # Because some rules may be long, the Makefile is split in several smaller files (they all belong to the same namespace).
 # It is recommended to keep all "nested" rules in this file if possible.
 
-include build-support/make/core/targets.mk  # Utilities to resolve targets
+include build-support/make/core/resolver.mk  # Utilities to resolve targets
 
 # Bash
 include build-support/make/config/bash.mk

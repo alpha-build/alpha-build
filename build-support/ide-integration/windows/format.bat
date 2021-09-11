@@ -5,4 +5,4 @@ SET USR_BIN=%GIT_BASH_ROOT%\usr\bin
 SET MINGW_BIN=%GIT_BASH_ROOT%\mingw64\bin
 SET PATH=%2;%2\Scripts;%USR_BIN%;%MINGW_BIN%;%PATH%
 
-make fmt-py -j1 on='%1'
+make fmt -j1 on='%1'
