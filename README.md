@@ -1,19 +1,19 @@
 # AlphaBuild
 
-[![Made with make](https://img.shields.io/badge/Made%20with-Make-white?style=for-the-badge&logo=CMake)
+[![Made with make](https://img.shields.io/badge/Made%20with-Make-lightgrey?style=for-the-badge&logo=CMake)
 ](https://www.gnu.org/software/make/manual/make.html)
 
 [![supports python](https://img.shields.io/badge/Supports%20-Python-blue?style=for-the-badge&logo=Python)]()
 [![supports jupyter](https://img.shields.io/badge/Supports%20-Jupyter-orange?style=for-the-badge&logo=Jupyter)]()
 [![supports bash](https://img.shields.io/badge/Supports%20-Bash-green?style=for-the-badge&logo=GNUBash)]()
 [![supports markdown](https://img.shields.io/badge/Supports%20-Markdown-black?style=for-the-badge&logo=Markdown)]()
-[![supports yml](https://img.shields.io/badge/Supports%20-YAML-red?style=for-the-badge)]()
-[![supports haskell](https://img.shields.io/badge/Supports%20-Haskell-purple?style=for-the-badge&logo=Haskell)]()
+[![supports yml](https://img.shields.io/badge/Supports%20-YAML-pink?style=for-the-badge)]()
+[![supports haskell](https://img.shields.io/badge/Supports%20-Haskell-purple?style=for-the-badge&logo=Haskell&logoColor=violet)]()
 
 [![supports linux](https://img.shields.io/badge/Supports%20-Linux-yellow?style=for-the-badge&logo=Linux)]()
 [![supports windows](https://img.shields.io/badge/Supports%20-Windows-brown?style=for-the-badge&logo=Windows)]()
 [![supports mac](https://img.shields.io/badge/Supports%20-MacOS-silver?style=for-the-badge&logo=Apple)]()
-[![supports pycharm](https://img.shields.io/badge/Supports%20-PyCharm-cyan?style=for-the-badge&logo=PyCharm)]()
+[![supports pycharm](https://img.shields.io/badge/Supports%20-PyCharm-darkgreen?style=for-the-badge&logo=PyCharm&logoColor=green)]()
 
 
 AlphaBuild is a simple monorepo build tool based on Make with out-of-the-box support for numerous tools in the
