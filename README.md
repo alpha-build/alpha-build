@@ -2,12 +2,14 @@
 
 [![Made with make](https://img.shields.io/badge/Made%20with-Make-lightblue?style=flat&logo=CMake&logoColor=lightblue)
 ](https://www.gnu.org/software/make/manual/make.html)
+[![Made with bash](https://img.shields.io/badge/Made%20with-Bash-darkgreen?style=flat&logo=GNUBash)
+](https://www.gnu.org/software/bash/)
 
 [![supports python](https://img.shields.io/badge/Supports%20-Python-blue?style=flat&logo=Python)
 ](https://www.python.org/)
 [![supports jupyter](https://img.shields.io/badge/Supports%20-Jupyter-orange?style=flat&logo=Jupyter)
 ](https://jupyter.org/)
-[![supports bash](https://img.shields.io/badge/Supports%20-Bash-green?style=flat&logo=GNUBash)
+[![supports bash](https://img.shields.io/badge/Supports%20-Bash-darkgreen?style=flat&logo=GNUBash)
 ](https://www.gnu.org/software/bash/)
 [![supports markdown](https://img.shields.io/badge/Supports%20-Markdown-black?style=flat&logo=Markdown)
 ](https://www.markdownguide.org/)
@@ -21,7 +23,7 @@
 [![supports mac](https://img.shields.io/badge/Supports%20-MacOS-silver?style=flat&logo=Apple)
 ](https://www.apple.com/macos/)
 
-[![supports pycharm](https://img.shields.io/badge/Compatible%20with%20-PyCharm-darkgreen?style=flat&logo=PyCharm&logoColor=green)
+[![supports pycharm](https://img.shields.io/badge/Compatible%20with%20-PyCharm-green?style=flat&logo=PyCharm&logoColor=green)
 ](https://www.jetbrains.com/pycharm/)
 
 [![supports ado](https://img.shields.io/badge/Compatible%20with%20-AzureDevOps-royalblue?style=flat&logo=AzureDevOps&logoColor=royalblue)
