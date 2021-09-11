@@ -40,15 +40,16 @@ environment managers etc.
 5. [Example monorepo running AlphaBuild](#example-monorepo-running-alphabuild)
 6. [Common admin actions](#common-admin-actions)
    1. [Installation](#installation)
-   2. [Upgrade](#upgrade)
-   3. [Change goal definitions](#change-goal-definitions)
-   4. [Add goals](#add-goals)
-   5. [Update PYTHONPATH](#update-pythonpath)
-   6. [See/Change tools config](#seechange-tools-config)
-   7. [Third party environments](#third-party-environments)
-   8. [Nested Makefiles](#nested-makefiles)
-   9. [Generate requirements.txt for each sub-project](#generate-requirementstxt-for-each-sub-project)
-   10. [Generate setup.py for each sub-project](#generate-setuppy-for-each-sub-project)
+   2. [CI/CD Setup](#cicd-setup)
+   3. [Upgrade](#upgrade)
+   4. [Change goal definitions](#change-goal-definitions)
+   5. [Add goals](#add-goals)
+   6. [Update PYTHONPATH](#update-pythonpath)
+   7. [See/Change tools config](#seechange-tools-config)
+   8. [Third party environments](#third-party-environments)
+   9. [Nested Makefiles](#nested-makefiles)
+   10. [Generate requirements.txt for each sub-project](#generate-requirementstxt-for-each-sub-project)
+   11. [Generate setup.py for each sub-project](#generate-setuppy-for-each-sub-project)
 7. [Out-of-the-box tools by language](#out-of-the-box-tools-by-language)
 8. [Comparison with Pants, Bazel, Pre-commit,
 Makefiles](#comparison-with-pants-bazel-pre-commit-and-traditional-makefiles)
@@ -223,6 +224,21 @@ To add this build system to an existing repo, one needs to simply copy over `bui
 
 Create a conda environment, activate it and `make env-default-replicate`, as a one-off, to set up the python, markdown
 and bash environments (mostly pip/npm install-s).
+
+#### CI/CD setup
+
+Since all CI/CD pipelines essentially rely on running some scripts in a certain order, AlphaBuild can be called
+directly from any CI/CD pipeline regardless of CI/CD technology provider. AlphaBuild helps with ensuring that both the
+CI and developers run the exact same commands.
+
+[![supports ado](https://img.shields.io/badge/Compatible%20with%20-AzureDevOps-lightblue?style=for-the-badge&logo=AzureDevOps&logoColor=lightblue)
+](https://azure.microsoft.com/en-us/services/devops/)
+[![supports github](https://img.shields.io/badge/Compatible%20with%20-GithubActions-black?style=for-the-badge&logo=github&logoColor=black)
+](https://github.com/features/actions)
+[![supports jenkins](https://img.shields.io/badge/Compatible%20with%20-Jenkins-red?style=for-the-badge&logo=Jenkins)
+](https://www.jenkins.io/)
+[![supports circleci](https://img.shields.io/badge/Compatible%20with%20-CircleCI-darkgrey?style=for-the-badge&logo=CircleCI)
+](https://www.jenkins.io/)
 
 #### Upgrade
 
