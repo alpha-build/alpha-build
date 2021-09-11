@@ -24,7 +24,7 @@ environment managers etc.
    7. [Third party environments](#Thirdpartyenvironments)
    8. [Nested Makefiles](#NestedMakefiles)
    9. [Generate requirements.txt for each sub-project](#Generaterequirements.txtforeachsub-project)
-   9. [Generate setup.py for each sub-project](#Generatesetup.pyforeachsub-project)
+   10. [Generate setup.py for each sub-project](#Generatesetup.pyforeachsub-project)
 7. [Out-of-the-box tools by language](#Out-of-the-boxtoolsbylanguage)
 8. [Comparison with Pants, Bazel, Pre-commit, Makefiles](#ComparisonwithPants,Bazel,Pre-commitandtraditionalMakefiles)
 
