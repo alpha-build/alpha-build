@@ -24,7 +24,7 @@
 [![supports pycharm](https://img.shields.io/badge/Compatible%20with%20-PyCharm-darkgreen?style=flat&logo=PyCharm&logoColor=green)
 ](https://www.jetbrains.com/pycharm/)
 
-[![supports ado](https://img.shields.io/badge/Compatible%20with%20-AzureDevOps-lightblue?style=flat&logo=AzureDevOps&logoColor=lightblue)
+[![supports ado](https://img.shields.io/badge/Compatible%20with%20-AzureDevOps-royalblue?style=flat&logo=AzureDevOps&logoColor=royalblue)
 ](https://azure.microsoft.com/en-us/services/devops/)
 [![supports github](https://img.shields.io/badge/Compatible%20with%20-GithubActions-black?style=flat&logo=github&logoColor=black)
 ](https://github.com/features/actions)
