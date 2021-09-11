@@ -59,6 +59,7 @@ environment managers etc.
    9. [Nested Makefiles](#nested-makefiles)
    10. [Generate requirements.txt for each sub-project](#generate-requirementstxt-for-each-sub-project)
    11. [Generate setup.py for each sub-project](#generate-setuppy-for-each-sub-project)
+   12. [Markdown badge](#markdown-badge)
 7. [Out-of-the-box tools by language](#out-of-the-box-tools-by-language)
 8. [Comparison with Pants, Bazel, Pre-commit,
 Makefiles](#comparison-with-pants-bazel-pre-commit-and-traditional-makefiles)
@@ -303,6 +304,17 @@ Run `make reqs-py`.
 #### Generate setup.py for each sub-project
 
 Run `build-support/python/packaging/generate_pip_install_files.py`
+
+#### Markdown badge
+
+If you like AlphaBuild, wear the Markdown badge on your repo:
+[![powered_by_alpha_build](https://img.shields.io/badge/Powered%20by%20-AlphaBuild-lightblue?style=flat&logo=CMake&logoColor=lightblue)
+](https://github.com/cristianmatache/alpha-build)
+
+```markdown
+[![powered_by_alpha_build](https://img.shields.io/badge/Powered%20by%20-AlphaBuild-lightblue?style=flat&logo=CMake&logoColor=lightblue)
+](https://github.com/cristianmatache/alpha-build)
+```
 
 ## Out-of-the-box tools by language
 
