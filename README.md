@@ -11,8 +11,6 @@
 ](https://www.gnu.org/software/bash/)
 [![supports markdown](https://img.shields.io/badge/Supports%20-Markdown-black?style=for-the-badge&logo=Markdown)
 ](https://www.markdownguide.org/)
-[![supports yml](https://img.shields.io/badge/Supports%20-YAML-pink?style=for-the-badge)
-](https://en.wikipedia.org/wiki/YAML)
 [![supports haskell](https://img.shields.io/badge/Supports%20-Haskell-purple?style=for-the-badge&logo=Haskell&logoColor=violet)
 ](https://www.haskell.org/)
 
@@ -23,14 +21,7 @@
 [![supports mac](https://img.shields.io/badge/Supports%20-MacOS-silver?style=for-the-badge&logo=Apple)
 ](https://www.apple.com/macos/)
 
-[![supports pycharm](https://img.shields.io/badge/Supports%20-PyCharm-darkgreen?style=for-the-badge&logo=PyCharm&logoColor=green)
-](https://www.jetbrains.com/pycharm/)
-
-[![supports pycharm](https://img.shields.io/badge/Compatible%20with%20-AzureDevOps-lightblue?style=for-the-badge&logo=AzureDevOps&logoColor=lightblue)
-](https://azure.microsoft.com/en-us/services/devops/)
-[![supports pycharm](https://img.shields.io/badge/Compatible%20with%20-GithubActions-black?style=for-the-badge&logo=github&logoColor=black)
-](https://github.com/features/actions)
-[![supports pycharm](https://img.shields.io/badge/Compatible%20with%20-Jenkins-red?style=for-the-badge&logo=Jenkins)
+[![supports pycharm](https://img.shields.io/badge/Compatible%20with%20-PyCharm-darkgreen?style=for-the-badge&logo=PyCharm&logoColor=green)
 ](https://www.jetbrains.com/pycharm/)
 
 AlphaBuild is a simple monorepo build tool based on Make with out-of-the-box support for numerous tools in the
