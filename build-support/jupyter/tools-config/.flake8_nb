@@ -1,0 +1,3 @@
+[flake8_nb]
+exclude = .git,__pycache__,bazel-bin,bazel-out,bazel-testlogs,bazel-workspace
+max-line-length = 120

@@ -1,0 +1,12 @@
+mypy
+flask
+flask_assets
+werkzeug
+pandas
+qpython
+colorama
+returns
+pathos
+requests
+dpath
+setuptools

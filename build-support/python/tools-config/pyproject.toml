@@ -1,0 +1,19 @@
+[tool.pytest.ini_options]
+addopts = "-vv --durations=10 --cache-clear"
+
+[tool.isort]
+line_length = 120
+multi_line_output = 3
+include_trailing_comma = true
+force_grid_wrap = 0
+ensure_newline_before_comments = true
+
+known_first_party = [
+    "py_utils",
+]
+default_section = "THIRDPARTY"
+
+[tool.black]
+line-length = 120
+skip-sring-normalization = true
+include = '\.pyi?'

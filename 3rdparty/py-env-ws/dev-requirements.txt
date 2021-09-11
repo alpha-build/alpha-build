@@ -1,0 +1,31 @@
+# type checker
+# mypy - is a core package of the env because we wrote a mypy plugin
+
+# formatters
+isort
+docformatter
+autoflake
+black
+jupyterblack
+nbstripout
+flynt
+
+# linters
+flake8
+flake8-markdown
+#flake8-bugbear
+flake8-nb
+pylint
+bandit
+shellcheck-py
+yamllint
+
+# test
+pytest
+coverage
+
+# packaging
+pipreqs
+shiv
+
+pre-commit

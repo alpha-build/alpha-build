@@ -1,0 +1,13 @@
+[FORMAT]
+max-line-length=120
+
+good-names=
+    df,q,i,j,
+    F,T
+
+disable=
+    missing-module-docstring,
+    missing-function-docstring,
+    missing-class-docstring,
+    fixme,
+    too-few-public-methods,

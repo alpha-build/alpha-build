@@ -1,0 +1,7 @@
+skips:
+  - B101
+exclude_dirs:
+  - bazel-bin
+  - bazel-out
+  - bazel-testlogs
+  - bazel-workspace
