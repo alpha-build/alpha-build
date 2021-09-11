@@ -1,28 +1,37 @@
 # AlphaBuild
 
-[![Made with make](https://img.shields.io/badge/Made%20with-Make-lightblue?style=for-the-badge&logo=CMake&logoColor=lightblue)
+[![Made with make](https://img.shields.io/badge/Made%20with-Make-lightblue?style=flat&logo=CMake&logoColor=lightblue)
 ](https://www.gnu.org/software/make/manual/make.html)
 
-[![supports python](https://img.shields.io/badge/Supports%20-Python-blue?style=for-the-badge&logo=Python)
+[![supports python](https://img.shields.io/badge/Supports%20-Python-blue?style=flat&logo=Python)
 ](https://www.python.org/)
-[![supports jupyter](https://img.shields.io/badge/Supports%20-Jupyter-orange?style=for-the-badge&logo=Jupyter)
+[![supports jupyter](https://img.shields.io/badge/Supports%20-Jupyter-orange?style=flat&logo=Jupyter)
 ](https://jupyter.org/)
-[![supports bash](https://img.shields.io/badge/Supports%20-Bash-green?style=for-the-badge&logo=GNUBash)
+[![supports bash](https://img.shields.io/badge/Supports%20-Bash-green?style=flat&logo=GNUBash)
 ](https://www.gnu.org/software/bash/)
-[![supports markdown](https://img.shields.io/badge/Supports%20-Markdown-black?style=for-the-badge&logo=Markdown)
+[![supports markdown](https://img.shields.io/badge/Supports%20-Markdown-black?style=flat&logo=Markdown)
 ](https://www.markdownguide.org/)
-[![supports haskell](https://img.shields.io/badge/Supports%20-Haskell-purple?style=for-the-badge&logo=Haskell&logoColor=violet)
+[![supports haskell](https://img.shields.io/badge/Supports%20-Haskell-purple?style=flat&logo=Haskell&logoColor=violet)
 ](https://www.haskell.org/)
 
-[![supports linux](https://img.shields.io/badge/Supports%20-Linux-yellow?style=for-the-badge&logo=Linux)
+[![supports linux](https://img.shields.io/badge/Supports%20-Linux-yellow?style=flat&logo=Linux)
 ](https://www.linux.org/)
-[![supports windows](https://img.shields.io/badge/Supports%20-Windows-brown?style=for-the-badge&logo=Windows)
+[![supports windows](https://img.shields.io/badge/Supports%20-Windows-brown?style=flat&logo=Windows)
 ](https://www.microsoft.com/en-us/windows)
-[![supports mac](https://img.shields.io/badge/Supports%20-MacOS-silver?style=for-the-badge&logo=Apple)
+[![supports mac](https://img.shields.io/badge/Supports%20-MacOS-silver?style=flat&logo=Apple)
 ](https://www.apple.com/macos/)
 
-[![supports pycharm](https://img.shields.io/badge/Compatible%20with%20-PyCharm-darkgreen?style=for-the-badge&logo=PyCharm&logoColor=green)
+[![supports pycharm](https://img.shields.io/badge/Compatible%20with%20-PyCharm-darkgreen?style=flat&logo=PyCharm&logoColor=green)
 ](https://www.jetbrains.com/pycharm/)
+
+[![supports ado](https://img.shields.io/badge/Compatible%20with%20-AzureDevOps-lightblue?style=flat&logo=AzureDevOps&logoColor=lightblue)
+](https://azure.microsoft.com/en-us/services/devops/)
+[![supports github](https://img.shields.io/badge/Compatible%20with%20-GithubActions-black?style=flat&logo=github&logoColor=black)
+](https://github.com/features/actions)
+[![supports jenkins](https://img.shields.io/badge/Compatible%20with%20-Jenkins-red?style=flat&logo=Jenkins)
+](https://www.jenkins.io/)
+[![supports circleci](https://img.shields.io/badge/Compatible%20with%20-CircleCI-darkgrey?style=flat&logo=CircleCI)
+](https://www.jenkins.io/)
 
 AlphaBuild is a simple monorepo build tool based on Make with out-of-the-box support for numerous tools in the
 Python, Bash, Jupyter Notebooks, Markdown, YAML ecosystems and with a strong focus on extensibility.
@@ -229,16 +238,8 @@ and bash environments (mostly pip/npm install-s).
 
 Since all CI/CD pipelines essentially rely on running some scripts in a certain order, AlphaBuild can be called
 directly from any CI/CD pipeline regardless of CI/CD technology provider. AlphaBuild helps with ensuring that both the
-CI and developers run the exact same commands.
-
-[![supports ado](https://img.shields.io/badge/Compatible%20with%20-AzureDevOps-lightblue?style=for-the-badge&logo=AzureDevOps&logoColor=lightblue)
-](https://azure.microsoft.com/en-us/services/devops/)
-[![supports github](https://img.shields.io/badge/Compatible%20with%20-GithubActions-black?style=for-the-badge&logo=github&logoColor=black)
-](https://github.com/features/actions)
-[![supports jenkins](https://img.shields.io/badge/Compatible%20with%20-Jenkins-red?style=for-the-badge&logo=Jenkins)
-](https://www.jenkins.io/)
-[![supports circleci](https://img.shields.io/badge/Compatible%20with%20-CircleCI-darkgrey?style=for-the-badge&logo=CircleCI)
-](https://www.jenkins.io/)
+CI pipelines and developers run the exact same commands. Since, one can easily select targets within the repo, setting
+pipelines on a per sub-project basis, is effortless with AlphaBuild.
 
 #### Upgrade
 
