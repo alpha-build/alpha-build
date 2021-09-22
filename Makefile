@@ -112,7 +112,7 @@ fmt: fmt-py fmt-nb fmt-yml fmt-md fmt-sh
 
 fmt-check: fmt-check-py fmt-check-nb
 
-lint: lint-py lint-sh lint-nb lint-yml lint-md lint-prometheus lint-alertmanager # lint-hs
+lint: lint-py lint-sh lint-nb lint-yml lint-md
 
 type-check: mypy
 
