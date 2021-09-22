@@ -1,5 +1,5 @@
 package-py: shiv
 
 shiv:
-	$(eval targets := .)
+	$(eval on := .)
 	find $(on) -type f -name "shiv-package.sh" | sort | xargs bash
