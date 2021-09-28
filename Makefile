@@ -48,7 +48,7 @@ include build-support/make/config/python.mk
 include build-support/make/core/python/pythonpath.mk
 #export MYPYPATH := $(PYTHONPATH)  # Uncomment to set MYPYPATH to be the same as PYTHONPATH
 include build-support/make/core/python/env.mk
-include build-support/make/extensions/python/env.mk
+include build-support/make/extensions/python/env.mk  # Also include custom goals coming from make/extensions/
 include build-support/make/core/python/format.mk
 include build-support/make/core/python/lint.mk
 include build-support/make/core/python/type-check.mk
