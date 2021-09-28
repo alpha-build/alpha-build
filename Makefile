@@ -48,14 +48,13 @@ include build-support/make/config/python.mk
 include build-support/make/core/python/pythonpath.mk
 #export MYPYPATH := $(PYTHONPATH)  # Uncomment to set MYPYPATH to be the same as PYTHONPATH
 include build-support/make/core/python/env.mk
-include build-support/make/extensions/python/setup.mk
+include build-support/make/extensions/python/env.mk
 include build-support/make/core/python/format.mk
 include build-support/make/core/python/lint.mk
 include build-support/make/core/python/type-check.mk
 include build-support/make/core/python/test.mk
 include build-support/make/core/python/package.mk
 include build-support/make/core/python/clean.mk
-include build-support/make/extensions/python/clean.mk
 include build-support/make/core/python/pre-commit.mk
 
 .PHONY: fmt-py fmt-check-py lint-py test-py clean-py

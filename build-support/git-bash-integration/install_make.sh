@@ -2,11 +2,14 @@
 
 # !!!! NOTE: Run Git bash as administrator to run this script!!!!!
 
-# https://gist.github.com/evanwill/0207876c3243bbb6863e65ec5dc3f058
-echo "Installing make"
+CHECKOUT_ROOT=$(realpath "${CHECKOUT_ROOT:-$(dirname "${BASH_SOURCE[0]}")/../..}")
 
 # Imports
-. lib_sh_utils/src/commands.sh
+# shellcheck source=build-support/git-bash-integration/utils.sh
+source "$CHECKOUT_ROOT/build-support/git-bash-integration/utils.sh"
+
+# https://gist.github.com/evanwill/0207876c3243bbb6863e65ec5dc3f058
+echo "Installing make"
 
 MAKE_DOWNLOAD_URL="https://sourceforge.net/projects/ezwinports/files/make-4.3-without-guile-w32-bin.zip/download"
 curl -kL $MAKE_DOWNLOAD_URL --output install_make.zip
