@@ -1,8 +1,5 @@
 DEFAULT_PYTHON_ENV='3rdparty/py-env-ws'
 
-# Common args
-line_len=120
-
 # Config files
 MYPY_CONFIG=build-support/python/tools-config/mypy.ini
 PYLINT_CONFIG=build-support/python/tools-config/.pylintrc
