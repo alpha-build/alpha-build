@@ -19,6 +19,12 @@ IS_WINDOWS_CMD=uname | egrep -i "msys"            # Non-empty if is windows cmd
 IS_WINDOWS_GIT_BASH=uname | egrep -i "mingw|NT-"  # Non-empty if is windows git bash
 IS_MAC=uname | egrep -i "darwin"                  # Non-empty if is mac
 
+ifneq ($(shell command -v gfind),)  # is MacOS (mostly)
+gnu_find=gfind
+else
+gnu_find=find
+endif
+
 # If "on" was supplied as an alias -> solve the alias, otherwise pass in the raw on
 # Args:
 #	- $1: named file/dir target(s) specifier (i.e. the "on")
@@ -38,14 +44,14 @@ endif
 # Same as:
 #	lang = [[ ! -z "$1" ]] && [[ ! -z `find $(call solve_aliases,$1) -type f -regex $2` ]]
 # but does not expand such that generated commands are not huge
-lang = [[ ! -z $(if $(shell echo "$1"),$(if $(shell find $(call solve_aliases,$1) -type f -regex $2),'true',''),'') ]]
+lang = [[ ! -z $(if $(shell echo "$1"),$(if $(shell $(gnu_find) $(call solve_aliases,$1) -type f -regex $2),'true',''),'') ]]
 
 # Finds the intersection of the given directories with the given files.
 # That is, returns all files in $2 that belong to the directories in $1
 # Args:
 #	- $1: a list of directories separated by spaces (as this is bash)
 #   - $2: a list of files (paths starting from repo root)
-intersect_files = $(shell find $(call solve_aliases,$1) $(foreach file,$2, -wholename $(file) -o) -wholename XYZ)
+intersect_files = $(shell $(gnu_find) $(call solve_aliases,$1) $(foreach file,$2, -wholename $(file) -o) -wholename XYZ)
 
 # NOTE 1: Does not work if the command built is longer than `getconf ARG_MAX` characters
 # Especially relevant when running with since=... (e.g. since=HEAD~10000) over all the files (no on=...)

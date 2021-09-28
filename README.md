@@ -65,19 +65,27 @@ Makefiles](#comparison-with-pants-bazel-pre-commit-and-traditional-makefiles)
 ## Platforms
 
 AlphaBuild works on Linux distributions, MacOS, WSL and Windows with Git Bash.
-`Make` and `Bash` are AlphaBuild's only pre-requisites.
+`Make` and `Bash` are AlphaBuild's only pre-requisites (Note: Bash with GNU utilities, not BSD utilities).
 
-### Linux, MacOS, WSL
+### Linux, WSL
 
-AlphaBuild may not work if you have ancient versions of `Make`/`Bash`, so try upgrading them if some commands don't seem
-to work.
+Since Linux is awesome and WSL follows its footsteps, AlphaBuild should just work there.
+
+### MacOS
+
+AlphaBuild relies heavily on the GNU version of `find` and `egrep`, so, if you are running an OS which,
+by default, uses BSD rather than GNU (pointing fingers to MacOS here, you may need to 
+`brew install` `findutils` and `grep`, see: https://xenodium.com/gnu-find-on-macos/)
+
+Also, AlphaBuild may not work if you have ancient versions of `Make` / `Bash`, so try upgrading them if some commands 
+don't seem to work. Macs typically come equipped with ancient versions of `Bash`.
 
 ### Windows
 
 On Windows, `Make` and `Bash` are not supported out-of-the-box, so it is recommended to use AlphaBuild on Windows within
 Git Bash. Note that Git Bash does not come with Make pre-installed. Once you downloaded and installed Git Bash
 run `build-support/git-bash-integration/install_make.sh` running Git Bash as administrator. Alternatively, you may get
-`Make` from `conda`
+`Make` from `conda`.
 
 ## Usage
 

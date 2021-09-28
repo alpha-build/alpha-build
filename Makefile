@@ -40,7 +40,8 @@ include build-support/make/core/bash/test.mk
 
 .PHONY: fmt-sh lint-sh test-sh
 fmt-sh: shfmt
-lint-sh: shellcheck shfmt-check
+fmt-check-sh: shfmt-check
+lint-sh: shellcheck fmt-check-sh
 test-sh: bats
 
 # Python
@@ -109,7 +110,7 @@ env-default-upgrade: env-py-default-upgrade env-sh-default-upgrade env-md-defaul
 
 fmt: fmt-py fmt-nb fmt-yml fmt-md fmt-sh
 
-fmt-check: fmt-check-py fmt-check-nb
+fmt-check: fmt-check-py fmt-check-nb fmt-check-sh
 
 lint: lint-py lint-sh lint-nb lint-yml lint-md
 
