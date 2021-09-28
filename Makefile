@@ -48,14 +48,13 @@ include build-support/make/config/python.mk
 include build-support/make/core/python/pythonpath.mk
 #export MYPYPATH := $(PYTHONPATH)  # Uncomment to set MYPYPATH to be the same as PYTHONPATH
 include build-support/make/core/python/env.mk
-include build-support/make/extensions/python/setup.mk
+include build-support/make/extensions/python/env.mk  # Also include custom goals coming from make/extensions/
 include build-support/make/core/python/format.mk
 include build-support/make/core/python/lint.mk
 include build-support/make/core/python/type-check.mk
 include build-support/make/core/python/test.mk
 include build-support/make/core/python/package.mk
 include build-support/make/core/python/clean.mk
-include build-support/make/extensions/python/clean.mk
 include build-support/make/core/python/pre-commit.mk
 
 .PHONY: fmt-py fmt-check-py lint-py test-py clean-py
@@ -112,7 +111,7 @@ fmt: fmt-py fmt-nb fmt-yml fmt-md fmt-sh
 
 fmt-check: fmt-check-py fmt-check-nb
 
-lint: lint-py lint-sh lint-nb lint-yml lint-md lint-prometheus lint-alertmanager # lint-hs
+lint: lint-py lint-sh lint-nb lint-yml lint-md
 
 type-check: mypy
 
