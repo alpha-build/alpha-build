@@ -61,6 +61,7 @@ environment managers etc.
 7. [Out-of-the-box tools by language](#out-of-the-box-tools-by-language)
 8. [Comparison with Pants, Bazel, Pre-commit,
 Makefiles](#comparison-with-pants-bazel-pre-commit-and-traditional-makefiles)
+9. [Limitations](#limitations)
 
 ## Platforms
 
@@ -360,22 +361,51 @@ It is very easy to extend this list with another tool, just following the existi
 
 ## Comparison with Pants, Bazel, Pre-commit and traditional Makefiles
 
-Modern build tools like Pants or Bazel work similarly in terms of goals and targets, but they also add a caching layer
-on previous results of running the goals. While they come equipped with heavy machinery to support enormous scale
-projects, they also come with restrictions. In my opinion, Pants which is the most suitable modern build tool for
-Python, for example, doesn't allow building environments with arbitrary package managers (e.g. conda, mamba),
-does not work on Windows, prohibits inconsistent environments (which is good but sometimes simply impossible in
-practice), does not yet support multiple environments. Bazel, requires maintaining the dependencies between Python files
-twice, once as "imports" in the Python files (the normal thing to do) and twice in some specific `BUILD` files that
-must be placed in each directory (by contrast Pants features autodiscovery). Maintaining the same dependencies in two
-places is quite draining. Of course, these tools come with benefits like caching/incrementality and out-of-the-box
-support for hermetic packaging (e.g. PEXes) but again neither supports arbitrary packers. In general, playing with some
-new command line tools, or new programming languages / types of files (e.g. Jupyter Notebooks) is challenging with these
-frameworks. The Pants community is very welcoming and supportive towards incorporating new tools, so it would be good to
-give it a try first. However, if any of the mentioned shortcomings is a hard requirement, Make seems like a good and
-robust alternative that withstood the test of time in so many settings.
+Modern build tools like Pants or Bazel work similarly to AlphaBuild in terms of goals and targets, but they also add 
+a caching layer on previous results of running the goals. While they come equipped with heavy machinery to support 
+enormous scale projects, they also come with some restrictions and specialized maintenance and contribution requirements.
+
+For example, Pants which, in my opinion, is the most suitable modern build tool for Python doesn't allow building 
+environments with arbitrary package managers (e.g. conda, mamba), does not work on Windows, prohibits inconsistent 
+environments (which is good but sometimes simply impossible in practice), does not yet support multiple environments. 
+Bazel, requires maintaining the dependencies between Python files twice, once as "imports" in the Python files 
+(the normal thing to do) and twice in some specific `BUILD` files that must be placed in each directory (by contrast Pants
+features autodiscovery). Maintaining the same dependencies in two places is quite draining. Of course, these tools come 
+with benefits like caching/incrementality and out-of-the-box support for hermetic packaging (e.g. PEXes), remote 
+caching etc. Moreover, playing with some new command line tools, or new programming languages / types of files (e.g. Jupyter 
+Notebooks, Markdown, YAML) may be challenging with these frameworks. The Pants community is very welcoming and supportive 
+towards incorporating new tools, so it would be good to give Pants a try first. However, if any of the mentioned shortcomings 
+is a hard requirement, Make seems like a good and robust alternative in the meanwhile which withstood the test of time in 
+so many settings. AlphaBuild's strengths are its flexibility, simplicity and transparency. One can quickly hack/add a new
+tool, see the commands that run under the hood and does not need to worry about BUILD files or the config language.
+
+Since AlphaBuild is essentially a script manager (Python, Bash, Perl, anything) enhanced with advanced 
+target/file/directory selection, AlphaBuild would allow an incremental adoption of large-scale build tools like Pants. 
+For example, in the main Makefile, one could do:
+```make
+# Makefile
+
+lint-with-pants:
+   $(eval on := ::)  # Default value if the user does not specify "on" in the terminal command like: make goal on=.
+   ./pants lint $(on)
+
+lint: lint-md lint-nb lint-yml lint-with-pants
+```
+such that running a command like the below would delegate most of the work to Pants while using AlphaBuild's core or 
+custom capabilities not yet available in Pants (e.g. linting notebooks, markdown or YAML files).
+```bash
+make lint on=my-dir/
+```
 
 Pre-commit and typical usages of Make work exceptionally well on small projects but they don't really scale well to
 multi-projects monorepos. The build system proposed here, already incorporates `pre-commit` and is obviously compatible
 with any existing Makefiles. This approach simply takes the idea of advanced target selection and ports it over to
 classical techniques like pre-commit and Make.
+
+## Limitations
+
+Since AlphaBuild is essentially a small-repo tool (Python Makefile) adapted to work on larger codebases (through target 
+selection), there is a point from where it will no longer be able to scale up. Fortunately, that point is quite far away 
+from medium-sized repos/teams. 
+
+In addition, AlphaBuild requires that the commands it builds are shorter than `getconf ARG_MAX` characters.
