@@ -75,10 +75,10 @@ Since Linux is awesome and WSL follows its footsteps, AlphaBuild should just wor
 ### MacOS
 
 AlphaBuild relies heavily on the GNU version of `find` and `egrep`, so, if you are running an OS which,
-by default, uses BSD rather than GNU (pointing fingers to MacOS here, you may need to 
-`brew install` `findutils` and `grep`, see: https://xenodium.com/gnu-find-on-macos/)
+by default, uses BSD rather than GNU (pointing fingers to MacOS here, you may need to
+`brew install` `findutils` and `grep`, see: <https://xenodium.com/gnu-find-on-macos/>)
 
-Also, AlphaBuild may not work if you have ancient versions of `Make` / `Bash`, so try upgrading them if some commands 
+Also, AlphaBuild may not work if you have ancient versions of `Make` / `Bash`, so try upgrading them if some commands
 don't seem to work. Macs typically come equipped with ancient versions of `Bash`.
 
 ### Windows
@@ -361,27 +361,28 @@ It is very easy to extend this list with another tool, just following the existi
 
 ## Comparison with Pants, Bazel, Pre-commit and traditional Makefiles
 
-Modern build tools like Pants or Bazel work similarly to AlphaBuild in terms of goals and targets, but they also add 
-a caching layer on previous results of running the goals. While they come equipped with heavy machinery to support 
+Modern build tools like Pants or Bazel work similarly to AlphaBuild in terms of goals and targets, but they also add
+a caching layer on previous results of running the goals. While they come equipped with heavy machinery to support
 enormous scale projects, they also come with some restrictions and specialized maintenance and contribution requirements.
 
-For example, Pants which, in my opinion, is the most suitable modern build tool for Python doesn't allow building 
-environments with arbitrary package managers (e.g. conda, mamba), does not work on Windows, prohibits inconsistent 
-environments (which is good but sometimes simply impossible in practice), does not yet support multiple environments. 
-Bazel, requires maintaining the dependencies between Python files twice, once as "imports" in the Python files 
+For example, Pants which, in my opinion, is the most suitable modern build tool for Python doesn't allow building
+environments with arbitrary package managers (e.g. conda, mamba), does not work on Windows, prohibits inconsistent
+environments (which is good but sometimes simply impossible in practice), does not yet support multiple environments.
+Bazel, requires maintaining the dependencies between Python files twice, once as "imports" in the Python files
 (the normal thing to do) and twice in some specific `BUILD` files that must be placed in each directory (by contrast Pants
-features autodiscovery). Maintaining the same dependencies in two places is quite draining. Of course, these tools come 
-with benefits like caching/incrementality and out-of-the-box support for hermetic packaging (e.g. PEXes), remote 
-caching etc. Moreover, playing with some new command line tools, or new programming languages / types of files (e.g. Jupyter 
-Notebooks, Markdown, YAML) may be challenging with these frameworks. The Pants community is very welcoming and supportive 
-towards incorporating new tools, so it would be good to give Pants a try first. However, if any of the mentioned shortcomings 
-is a hard requirement, Make seems like a good and robust alternative in the meanwhile which withstood the test of time in 
+features autodiscovery). Maintaining the same dependencies in two places is quite draining. Of course, these tools come
+with benefits like caching/incrementality and out-of-the-box support for hermetic packaging (e.g. PEXes), remote
+caching etc. Moreover, playing with some new command line tools, or new programming languages / types of files (e.g. Jupyter
+Notebooks, Markdown, YAML) may be challenging with these frameworks. The Pants community is very welcoming and supportive
+towards incorporating new tools, so it would be good to give Pants a try first. However, if any of the mentioned shortcomings
+is a hard requirement, Make seems like a good and robust alternative in the meanwhile which withstood the test of time in
 so many settings. AlphaBuild's strengths are its flexibility, simplicity and transparency. One can quickly hack/add a new
 tool, see the commands that run under the hood and does not need to worry about BUILD files or the config language.
 
-Since AlphaBuild is essentially a script manager (Python, Bash, Perl, anything) enhanced with advanced 
-target/file/directory selection, AlphaBuild would allow an incremental adoption of large-scale build tools like Pants. 
+Since AlphaBuild is essentially a script manager (Python, Bash, Perl, anything) enhanced with advanced
+target/file/directory selection, AlphaBuild would allow an incremental adoption of large-scale build tools like Pants.
 For example, in the main Makefile, one could do:
+
 ```make
 # Makefile
 
@@ -391,8 +392,10 @@ lint-with-pants:
 
 lint: lint-md lint-nb lint-yml lint-with-pants
 ```
-such that running a command like the below would delegate most of the work to Pants while using AlphaBuild's core or 
+
+such that running a command like the below would delegate most of the work to Pants while using AlphaBuild's core or
 custom capabilities not yet available in Pants (e.g. linting notebooks, markdown or YAML files).
+
 ```bash
 make lint on=my-dir/
 ```
@@ -404,8 +407,8 @@ classical techniques like pre-commit and Make.
 
 ## Limitations
 
-Since AlphaBuild is essentially a small-repo tool (Python Makefile) adapted to work on larger codebases (through target 
-selection), there is a point from where it will no longer be able to scale up. Fortunately, that point is quite far away 
-from medium-sized repos/teams. 
+Since AlphaBuild is essentially a small-repo tool (Python Makefile) adapted to work on larger codebases (through target
+selection), there is a point from where it will no longer be able to scale up. Fortunately, that point is quite far away
+from medium-sized repos/teams.
 
 In addition, AlphaBuild requires that the commands it builds are shorter than `getconf ARG_MAX` characters.
