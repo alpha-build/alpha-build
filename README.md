@@ -369,16 +369,16 @@ For example, Pants which, in my opinion, is the most suitable modern build tool 
 environments with arbitrary package managers (e.g. conda, mamba), does not work on Windows, prohibits inconsistent
 environments (which is good but sometimes simply impossible in practice), does not yet support multiple environments.
 Bazel, requires maintaining the dependencies between Python files twice, once as "imports" in the Python files
-(the normal thing to do) and twice in some specific `BUILD` files that must be placed in each directory (by contrast Pants
-features autodiscovery). Maintaining the same dependencies in two places is quite draining. Of course, these tools come
-with benefits like (remote) caching, incrementality and out-of-the-box support for hermetic packaging (e.g. PEXes), remote
-execution etc. Moreover, playing with some new command line tools, or new programming languages / types of files 
-(e.g. Jupyter Notebooks, Markdown, YAML) may be challenging with these frameworks. The Pants community is very welcoming and
-supportive towards incorporating new tools, so it would be good to give Pants a try first. However, if any of the mentioned 
-shortcomings is a hard requirement, Make seems like a good and robust alternative in the meanwhile which withstood the test 
-of time in so many settings. AlphaBuild's strengths are its flexibility, simplicity, transparency and tooling richness. One
-can quickly hack/add a new tool, see the commands that run under the hood and does not need to worry about BUILD files or 
-the config language.
+(the normal thing to do) and twice in some specific `BUILD` files that must be placed in each directory (by contrast
+Pants features autodiscovery). Maintaining the same dependencies in two places is quite draining. Of course, these tools
+come with benefits like (remote) caching, incrementality and out-of-the-box support for hermetic packaging (e.g. PEXes),
+remote execution etc. Moreover, playing with some new command line tools, or new programming languages / types of files
+(e.g. Jupyter Notebooks, Markdown, YAML) may be challenging with these frameworks. The Pants community is very welcoming
+and supportive towards incorporating new tools, so it would be good to give Pants a try first. However, if any of the
+mentioned shortcomings is a hard requirement, Make seems like a good and robust alternative in the meanwhile which
+withstood the test of time in so many settings. AlphaBuild's strengths are its flexibility, simplicity, transparency and
+tooling richness. One can quickly hack/add a new tool, see the commands that run under the hood and does not need to
+worry about BUILD files or the config language.
 
 Since AlphaBuild is essentially a script manager (Python, Bash, Perl, anything) enhanced with advanced
 target/file/directory selection, AlphaBuild would allow an incremental adoption of large-scale build tools like Pants.
