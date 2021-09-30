@@ -8,7 +8,7 @@
 .PHONY: pipreqs
 pipreqs:
 	$(eval targets := $(onpy))
-	if $(call lang,$(targets),$(REGEX_PY)); then  \
+	@if $(call lang,$(targets),$(REGEX_PY)); then  \
   	for target in $(targets); do pipreqs $(PIPREQS_FLAGS) $$target; done; fi
 
 .PHONY: pip-install-local
