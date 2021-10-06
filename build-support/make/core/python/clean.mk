@@ -20,4 +20,12 @@ clean-mypy:
 
 .PHONY: clean-egg-info
 clean-egg-info:
-	find . -name .hypothesis -type d -exec rm -rf {} +
+	find . -name *.egg-info -type d -exec rm -rf {} +
+
+.PHONY: clean-whl
+clean-whl:
+	find . -name *.whl -type f -exec rm -rf {} +
+
+.PHONY: clean-bdist
+clean-bdist:
+	find . -name bdist* -type d -exec rm -rf {} +
