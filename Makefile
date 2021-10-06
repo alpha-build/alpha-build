@@ -63,7 +63,7 @@ fmt-py: docformatter isort autoflake black flynt
 fmt-check-py: autoflake-check docformatter-check isort-check black-check flynt-check
 lint-py: mypy flake8 bandit fmt-check-py pylint
 test-py: pytest
-clean-py: clean-pyc clean-mypy clean-pytest clean-egg-info clean-build-utils
+clean-py: clean-pyc clean-mypy clean-pytest clean-egg-info clean-whl clean-bdist clean-build-utils
 
 # Notebooks
 include build-support/make/config/jupyter.mk
