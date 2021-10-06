@@ -252,7 +252,13 @@ pipelines on a per sub-project basis, is effortless with AlphaBuild.
 #### Upgrade
 
 To upgrade an existing installation if new tools are added or changes are made to the target resolution infrastructure,
-one would simply need to copy over `lib-support/make/core`.
+one would simply need to replace the `lib-support/make/core` directory. To do that please run:
+
+```bash
+pip install alpha-build-core --target tmp/
+tar -xvf tmp/alpha_build_core.tar.gz
+rm -rf tmp/
+```
 
 #### Change goal definitions
 

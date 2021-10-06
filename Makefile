@@ -63,7 +63,7 @@ fmt-py: docformatter isort autoflake black flynt
 fmt-check-py: autoflake-check docformatter-check isort-check black-check flynt-check
 lint-py: mypy flake8 bandit fmt-check-py pylint
 test-py: pytest
-clean-py: clean-pyc clean-mypy clean-pytest clean-egg-info clean-whl clean-bdist clean-build-utils
+clean-py: clean-pyc clean-mypy clean-pytest clean-egg-info clean-whl clean-bdist
 
 # Notebooks
 include build-support/make/config/jupyter.mk
@@ -134,3 +134,18 @@ uninstall-pre-commit-hook:
 
 rm-envs:
 	rm -rf 3rdparty/md-env-ws/node_modules/ 3rdparty/sh-env-ws/node_modules/
+
+# ------------ SPECIFIC TO AlphaBuild ONLY -------------
+# Code to build and release a new version of AlphaBuild
+build-wheel:
+	rm alpha_build_core.tar.gz || echo "alpha_build_core.tar.gz does not exist yet"
+	tar -cvzf alpha_build_core.tar.gz build-support/make/core
+	python build-support/make/core/setup.py bdist_wheel
+
+publish-wheel: clean-py build-wheel
+	twine upload --repository-url https://test.pypi.org/legacy/ dist/*
+
+# Example upgrade script from a monorepo that uses AlphaBuild
+# pip install -i https://test.pypi.org/simple/ alpha-build-core --target tmp/
+# tar -xvf tmp/alpha_build_core.tar.gz
+# rm -rf tmp/

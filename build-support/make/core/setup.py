@@ -2,11 +2,14 @@ from pathlib import Path
 
 from setuptools import setup
 
-README = Path(__file__).absolute().parents[3] / "README.md"
+FILE_PATH = Path(__file__).absolute()
+REPO_ROOT = FILE_PATH.parents[3]
+README = REPO_ROOT / "README.md"
+COMPRESSED_CORE = REPO_ROOT / "alpha_build_core.tar.gz"
 
 setup(
     name="alpha-build-core",
-    version="0.0.1",
+    version="0.0.3beta",
     description="AlphaBuild's core",
     long_description=README.read_text(),
     long_description_content_type="text/markdown",
@@ -16,5 +19,5 @@ setup(
     license="MIT",
     packages=[],
     include_package_data=True,
-    package_data={'': ['**/*.mk']},
+    data_files=[('', [str(COMPRESSED_CORE)])],
 )
