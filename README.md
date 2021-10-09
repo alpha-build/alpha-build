@@ -20,6 +20,7 @@
 ](https://www.typescriptlang.org/)
 [![supports html5](https://img.shields.io/badge/Supports%20-HTML-orange?style=flat&logo=HTML5&logoColor=orange)
 ](https://en.wikipedia.org/wiki/HTML5)
+
 [![supports linux](https://img.shields.io/badge/Supports%20-Linux-yellow?style=flat&logo=Linux)
 ](https://www.linux.org/)
 [![supports windows](https://img.shields.io/badge/Supports%20-Windows-brown?style=flat&logo=Windows)
