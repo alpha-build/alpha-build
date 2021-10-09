@@ -4,6 +4,7 @@
 ](https://www.gnu.org/software/make/manual/make.html)
 [![Made with bash](https://img.shields.io/badge/Made%20with-Bash-darkgreen?style=flat&logo=GNUBash)
 ](https://www.gnu.org/software/bash/)
+
 [![supports python](https://img.shields.io/badge/Supports%20-Python-blue?style=flat&logo=Python)
 ](https://www.python.org/)
 [![supports jupyter](https://img.shields.io/badge/Supports%20-Jupyter-orange?style=flat&logo=Jupyter)
@@ -20,7 +21,6 @@
 ](https://www.typescriptlang.org/)
 [![supports html5](https://img.shields.io/badge/Supports%20-HTML-orange?style=flat&logo=HTML5&logoColor=orange)
 ](https://en.wikipedia.org/wiki/HTML5)
-
 [![supports linux](https://img.shields.io/badge/Supports%20-Linux-yellow?style=flat&logo=Linux)
 ](https://www.linux.org/)
 [![supports windows](https://img.shields.io/badge/Supports%20-Windows-brown?style=flat&logo=Windows)
