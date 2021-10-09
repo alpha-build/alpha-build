@@ -12,6 +12,10 @@ REGEX_HS=".*\.hs"
 REGEX_NB=".*\.ipynb"
 REGEX_MD=".*\.md"
 REGEX_YML=".*\.ya?ml"
+REGEX_JS=".*\.js"
+REGEX_TS=".*\.ts"
+REGEX_HTML=".*\.html"
+REGEX_CSS=".*.\.css"
 
 # OS handling for environments
 # Don't run these with $(shell ...) here because it may result in slowness, use $(shell $(IS_WINDOWS_CMD)) at the point of use
@@ -66,23 +70,35 @@ ifneq ($(since),)
 	since_nb=$(shell  git diff --name-only $(since) | grep -E $(REGEX_NB))
 	since_md=$(shell  git diff --name-only $(since) | grep -E $(REGEX_MD))
 	since_yml=$(shell git diff --name-only $(since) | grep -E $(REGEX_YML))
+	since_js=$(shell git diff --name-only $(since) | grep -E $(REGEX_JS))
+	since_ts=$(shell git diff --name-only $(since) | grep -E $(REGEX_TS))
+	since_html=$(shell git diff --name-only $(since) | grep -E $(REGEX_HTML))
+	since_css=$(shell git diff --name-only $(since) | grep -E $(REGEX_CSS))
 	ifneq ($(on),)
 		# Run over all the files change since=... that appear in the defaults (i.e. in the ON<LANG> variables)
-		onpy=$(call  intersect_files,$(call solve_aliases,$(on)),$(since_py))
-		onsh=$(call  intersect_files,$(call solve_aliases,$(on)),$(since_sh))
-		onhs=$(call  intersect_files,$(call solve_aliases,$(on)),$(since_hs))
-		onnb=$(call  intersect_files,$(call solve_aliases,$(on)),$(since_nb))
-		onmd=$(call  intersect_files,$(call solve_aliases,$(on)),$(since_md))
-		onyml=$(call intersect_files,$(call solve_aliases,$(on)),$(since_yml))
+		onpy=$(call   intersect_files,$(call solve_aliases,$(on)),$(since_py))
+		onsh=$(call   intersect_files,$(call solve_aliases,$(on)),$(since_sh))
+		onhs=$(call   intersect_files,$(call solve_aliases,$(on)),$(since_hs))
+		onnb=$(call   intersect_files,$(call solve_aliases,$(on)),$(since_nb))
+		onmd=$(call   intersect_files,$(call solve_aliases,$(on)),$(since_md))
+		onyml=$(call  intersect_files,$(call solve_aliases,$(on)),$(since_yml))
+		onjs=$(call   intersect_files,$(call solve_aliases,$(on)),$(since_js))
+		onts=$(call   intersect_files,$(call solve_aliases,$(on)),$(since_ts))
+		onhtml=$(call intersect_files,$(call solve_aliases,$(on)),$(since_html))
+		oncss=$(call  intersect_files,$(call solve_aliases,$(on)),$(since_css))
 	else
 		# Run over all the files change since=... that also belong to the defaults (i.e. in the ON<LANG> variables)
 		# (results in different targets for each language)
-		onpy=$(call  intersect_files,$(call solve_aliases,$(ONPY)),$(since_py))
-		onsh=$(call  intersect_files,$(call solve_aliases,$(ONSH)),$(since_sh))
-		onhs=$(call  intersect_files,$(call solve_aliases,$(ONHS)),$(since_hs))
-		onnb=$(call  intersect_files,$(call solve_aliases,$(ONNB)),$(since_nb))
-		onmd=$(call  intersect_files,$(call solve_aliases,$(ONMD)),$(since_md))
-		onyml=$(call intersect_files,$(call solve_aliases,$(ONYML)),$(since_yml))
+		onpy=$(call   intersect_files,$(call solve_aliases,$(ONPY)),$(since_py))
+		onsh=$(call   intersect_files,$(call solve_aliases,$(ONSH)),$(since_sh))
+		onhs=$(call   intersect_files,$(call solve_aliases,$(ONHS)),$(since_hs))
+		onnb=$(call   intersect_files,$(call solve_aliases,$(ONNB)),$(since_nb))
+		onmd=$(call   intersect_files,$(call solve_aliases,$(ONMD)),$(since_md))
+		onyml=$(call  intersect_files,$(call solve_aliases,$(ONYML)),$(since_yml))
+		onjs=$(call   intersect_files,$(call solve_aliases,$(ONJS)),$(since_js))
+		onts=$(call   intersect_files,$(call solve_aliases,$(ONTS)),$(since_ts))
+		onhtml=$(call intersect_files,$(call solve_aliases,$(ONHTML)),$(since_html))
+		oncss=$(call  intersect_files,$(call solve_aliases,$(ONCSS)),$(since_css))
 	endif
 else
 	ifneq ($(on),)
@@ -95,15 +111,23 @@ else
 		onnb=$(call  solve_aliases,$(on))
 		onmd=$(call  solve_aliases,$(on))
 		onyml=$(call solve_aliases,$(on))
+		onjs=$(call solve_aliases,$(on))
+		onts=$(call solve_aliases,$(on))
+		onhtml=$(call solve_aliases,$(on))
+		oncss=$(call solve_aliases,$(on))
 	else
 		# Run over the default targets
 		# (results in different targets for each language)
-		onpy=$(call  solve_aliases,$(ONPY))
-		onsh=$(call  solve_aliases,$(ONSH))
-		onhs=$(call  solve_aliases,$(ONHS))
-		onnb=$(call  solve_aliases,$(ONNB))
-		onmd=$(call  solve_aliases,$(ONMD))
-		onyml=$(call solve_aliases,$(ONYML))
+		onpy=$(call   solve_aliases,$(ONPY))
+		onsh=$(call   solve_aliases,$(ONSH))
+		onhs=$(call   solve_aliases,$(ONHS))
+		onnb=$(call   solve_aliases,$(ONNB))
+		onmd=$(call   solve_aliases,$(ONMD))
+		onyml=$(call  solve_aliases,$(ONYML))
+		onjs=$(call   solve_aliases,$(ONJS))
+		onts=$(call   solve_aliases,$(ONTS))
+		onhtml=$(call solve_aliases,$(ONHTML))
+		oncss=$(call  solve_aliases,$(ONCSS))
 	endif
 endif
 

@@ -152,3 +152,6 @@ data/
 
 # Markdown env
 3rdparty/md-env-ws/node_modules
+
+# Prettier env
+3rdparty/prettier-env-ws/node_modules
