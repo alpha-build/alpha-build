@@ -148,10 +148,10 @@ bazel-*/
 data/
 
 # Bash env
-3rdparty/sh-env-ws/node_modules
+3rdparty/sh-env/node_modules
 
 # Markdown env
-3rdparty/md-env-ws/node_modules
+3rdparty/md-env/node_modules
 
 # Prettier env
-3rdparty/prettier-env-ws/node_modules
+3rdparty/prettier-env/node_modules

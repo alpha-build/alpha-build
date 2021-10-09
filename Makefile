@@ -158,7 +158,7 @@ uninstall-pre-commit-hook:
 	rm .git/hooks/pre-commit
 
 rm-envs:
-	rm -rf 3rdparty/md-env-ws/node_modules/ 3rdparty/sh-env-ws/node_modules/  3rdparty/prettier-env-ws/node_modules/
+	rm -rf 3rdparty/md-env/node_modules/ 3rdparty/sh-env/node_modules/  3rdparty/prettier-env/node_modules/
 
 # ------------ SPECIFIC TO AlphaBuild ONLY -------------
 # Code to build and release a new version of AlphaBuild
