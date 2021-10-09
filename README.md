@@ -60,7 +60,7 @@ environment managers etc.
    12. [Markdown badge](#markdown-badge)
 7. [Out-of-the-box tools by language](#out-of-the-box-tools-by-language)
 8. [Comparison with Pants, Bazel, Pre-commit,
-Makefiles](#comparison-with-pants-bazel-pre-commit-and-traditional-makefiles)
+   Makefiles](#comparison-with-pants-bazel-pre-commit-and-traditional-makefiles)
 9. [Limitations](#limitations)
 
 ## Platforms
@@ -111,7 +111,7 @@ Goals mean what command line tools to run. This build system can run one more to
   - e.g. `make fmt-py` runs all Python formatters e.g. `isort`, `black`, `docformatter`, `flynt`, `autoflake`
   - e.g. `make fmt-sh` runs `shfmt`
   - e.g. `make lint-py` runs Python all linters and all formatters in "verification" mode, that is `flake8` + `pylint` +
-  check whether the code is already formatted with `isort`, `black`, `docformatter`, `flynt`, `autoflake`
+    check whether the code is already formatted with `isort`, `black`, `docformatter`, `flynt`, `autoflake`
   - `make fmt-md`, `make lint-yml`, `test-sh`, `test-py` ... work similarly
 - Multiple tools for **multiple languages**
   - e.g. `make fmt` runs all formatters for all supported languages (Python, Bash, Markdown, YAML, ...)
@@ -120,7 +120,7 @@ Goals mean what command line tools to run. This build system can run one more to
 
 It is possible to run multiple goals at once like `make lint test`. In addition, it is very easy to change the meaning
 of goals that run more than one command since they are very simply defined in Make based on other goals. For example,
-one can remove the `shfmt` from bash linting simply by doing the below:  
+one can remove the `shfmt` from bash linting simply by doing the below:
 
 ```makefile
 # Before
@@ -151,23 +151,23 @@ e.g. `ONPY=py-project1/ py-project2/ script.py` and `ONSH=scripts/`.
   - a YAML linter (yamllint) on all directories (in `$ONYML`) that contain YAML files.
 - `make lint`, `make fmt -j1`, `make type-check` work similarly
 - remember that the `$(ONPY)`, `$(ONSH)`, ... variables are defined at the top of the Makefile and represent the
-default locations where AlphaBuild searches for files certain languages.
+  default locations where AlphaBuild searches for files certain languages.
 
 #### With specific targets
 
 To specify manually the files/directories you want to run your tools on, AlphaBuild leverages the "on" syntax:
 
 - **file:** `make lint on=app_iqor/server.py` runs all Python linters on the file, same
-    as `make lint-py on=app_iqor/server.py`
+  as `make lint-py on=app_iqor/server.py`
 - **directory:** `make lint on=lib_py_utils` runs a bunch of linters on the directory, in this case, same
-    as `make lint-py on=lib_py_utils/`.
+  as `make lint-py on=lib_py_utils/`.
 - **files/directories:** `make lint on="lib_py_utils app_iqor/server.py"` runs a bunch of linters on both targets.
 - **globs:** `make lint on=lib_*`
 - **aliases:** `make fmt on=iqor` where at the top of the Makefile `iqor=app_iqor/iqor app_iqor/test_iqor`, this is the
-same as `make fmt on=app_iqor/iqor app_iqor/test_iqor` because `iqor` is an alias for
-`app_iqor/iqor app_iqor/test_iqor`. Even though this example is simplistic, it is useful to alias combinations of
-multiple files/directories. It is recommended to set aliases as constants in the Makefile even though environment
-variables would also work.
+  same as `make fmt on=app_iqor/iqor app_iqor/test_iqor` because `iqor` is an alias for
+  `app_iqor/iqor app_iqor/test_iqor`. Even though this example is simplistic, it is useful to alias combinations of
+  multiple files/directories. It is recommended to set aliases as constants in the Makefile even though environment
+  variables would also work.
 - same for `make fmt`, `make test`, `make type-check`.
 
 #### With git revision targets
@@ -202,31 +202,31 @@ If you want to learn more about the API of a specific goal, check the source cod
 
 - **Makefile:** AlphaBuild's entry point, this is where all components come together.
 - **3rdparty/:** Files required to build environments of 3rd party dependencies (e.g. requirements.txt files,
-package.json or lock files)
+  package.json or lock files)
 - **build-support/:** Makefile library inspired by Pants/Bazel to run linters, formatters, test frameworks, type
   checkers, packers etc. on a variety of languages (Python, Jupyter Notebooks, Bash, Haskell, YAML, Markdown)
   - The flags used per-tool (e.g. setting the paths to config files) can be found in
-  `build-support/make/config/<lang>.mk`
+    `build-support/make/config/<lang>.mk`
   - The core part of AlphaBuild lives in `build-support/make/core/`, this comprises the build-system backbone
-  `resolver.mk` and recipes to run lots of readily-available tools. This should be the same for all monorepos that
-  use AlphaBuild.
+    `resolver.mk` and recipes to run lots of readily-available tools. This should be the same for all monorepos that
+    use AlphaBuild.
   - By convention, repo-specific custom goals go in `build-support/make/extensions/` following the examples in `core`.
   - `build-support/<other-programming-lang-than-make>/` contain things like config files for each tool and other files
-  required for your custom AlphaBuild goals.
+    required for your custom AlphaBuild goals.
 
 ## IDE Integration
 
 - **PyCharm / IntelliJ**
   - Windows: On Windows, it is advised to set Git Bash as the default "Terminal". In "settings" search for "terminal",
-  go to "Tools → Terminal" and set "Shell Path" to something like `C:\Program Files\Git\bin\bash.exe`.
+    go to "Tools → Terminal" and set "Shell Path" to something like `C:\Program Files\Git\bin\bash.exe`.
   - PYTHONPATH: If you are writing Python, please mark the directories for each project as "Sources Roots", such that
-  PyCharm discovers your imports.
+    PyCharm discovers your imports.
   - AlphaBuild hotkeys: It is easy to use AlphaBuild with hotkeys. For example, mapping `Alt+F` to
-  `make fmt -j1 on=<current-file>` and `Alt+L` to `make lint on=<current-file>`. To set this up, follow the example in
-  `build-support/ide-integration/windows/` to set up an external tool. Unix systems would be similar. Next, just map the
-  new external tools to your hotkeys.
-  ![external-tool](build-support/ide-integration/windows/example-setup-windows-pycharm.png)
-  ![external-tool-keymap](build-support/ide-integration/windows/example-setup-windows-pycharm-keymap.png)
+    `make fmt -j1 on=<current-file>` and `Alt+L` to `make lint on=<current-file>`. To set this up, follow the example in
+    `build-support/ide-integration/windows/` to set up an external tool. Unix systems would be similar. Next, just map the
+    new external tools to your hotkeys.
+    ![external-tool](build-support/ide-integration/windows/example-setup-windows-pycharm.png)
+    ![external-tool-keymap](build-support/ide-integration/windows/example-setup-windows-pycharm-keymap.png)
 
 ## Example monorepo running AlphaBuild
 
@@ -286,20 +286,20 @@ All other tools work similarly.
 #### Third party environments
 
 - **Exact reproduction of the default environment:** The recipes to fully replicate the default environment
-(mostly using `pip`, `conda` and `npm`) are found in `build-support/make/core/<langugage>/setup.mk`, where they use
-dependency files and lock files that can be found in `3rdparty/`. In practice, run `make env-default-replicate` inside
-a conda environment. Also make sure you also have `npm` installed because `markdownlint` and `bats` bash testing
-framework come from `npm` (if you don't need them no need to worry about `npm` just exclude the `markdown`
-environment rule from the pre-requisites of `env-default-replicate`)
+  (mostly using `pip`, `conda` and `npm`) are found in `build-support/make/core/<langugage>/setup.mk`, where they use
+  dependency files and lock files that can be found in `3rdparty/`. In practice, run `make env-default-replicate` inside
+  a conda environment. Also make sure you also have `npm` installed because `markdownlint` and `bats` bash testing
+  framework come from `npm` (if you don't need them no need to worry about `npm` just exclude the `markdown`
+  environment rule from the pre-requisites of `env-default-replicate`)
 - **Create/Upgrade/Edit default environment:** If you want to edit the default environment, for example to add,
-remove, constrain packages edit the `requirements.txt` not the `constraints.txt` file (in `3rdparty/`).
-The `constraints.txt` is only used for reproducibility. If you just want to upgrade your third party dependencies
-there is no need to temper with the `requirements.txt` files. Then run `make env-default-upgrade` and check the lock
-files back into git.
+  remove, constrain packages edit the `requirements.txt` not the `constraints.txt` file (in `3rdparty/`).
+  The `constraints.txt` is only used for reproducibility. If you just want to upgrade your third party dependencies
+  there is no need to temper with the `requirements.txt` files. Then run `make env-default-upgrade` and check the lock
+  files back into git.
 - **Add a new environment:** To add a new environment, first add the dependency files (e.g. `requirements.txt`) in
-`3rdparty/<new-env-name>`, add a new goal in `build-support/make/extensions`. For environment management over time, we
-strongly encourage maintaining the approach split between creation/upgrade/edit and exact reproduction of
-environments.
+  `3rdparty/<new-env-name>`, add a new goal in `build-support/make/extensions`. For environment management over time, we
+  strongly encourage maintaining the approach split between creation/upgrade/edit and exact reproduction of
+  environments.
 
 #### Nested Makefiles
 
@@ -356,12 +356,21 @@ like `lint-py` or `lint`.
   - Lint: `hlint`
 - YAML:
   - Setup: `pip`
-  - Lint: `yamllint`
+  - Lint: `yamllint`, `prettier`
 - Prometheus and Alertmanager YAML:
   - Lint: `promtool check`, `amtool check-config`
 - Markdown:
   - Setup: `npm`
-  - Format + Lint: `markdownlint`
+  - Format + Lint: `markdownlint`, `prettier`
+- HTML + CSS:
+  - Setup: `npm`
+  - Format + Lint: `prettier`
+- JavaScript:
+  - Setup: `npm`
+  - Format + Lint: `prettier`
+- TypeScript:
+  - Setup: `npm`
+  - Format + Lint: `prettier`
 
 It is very easy to extend this list with another tool, just following the existing examples.
 

@@ -107,7 +107,7 @@ include build-support/make/core/markdown/lint.mk
 
 .PHONY: fmt-md lint-md
 fmt-md: markdownlint-fmt prettier-md
-fmt-check-md: markdownlint
+fmt-check-md: markdownlint prettier-md-check
 lint-md: markdownlint fmt-check-md
 
 # HTML/CSS/Web
