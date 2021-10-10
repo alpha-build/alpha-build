@@ -19,6 +19,8 @@ ONHS=tutorials_hs/scheme_interpreter
 ONNB=notebooks/
 ONMD=*.md app_* lib_* resources/
 ONYML=.ci-azure/ build-support/ deploy-support/ .pre-commit-config.yaml
+ONHTML=iqor app_paper_plane/
+ONCSS=$(ONHTML)
 
 # Targets - for packaging (e.g. generation of requirements.txt files)
 PY_LIBS=lib_py_utils/  # can be pip-install-ed
@@ -43,6 +45,10 @@ fmt-sh: shfmt
 fmt-check-sh: shfmt-check
 lint-sh: shellcheck fmt-check-sh
 test-sh: bats
+
+# Multi language
+include build-support/make/config/multi.mk
+include build-support/make/core/multi/env.mk
 
 # Python
 include build-support/make/config/python.mk
@@ -89,8 +95,9 @@ include build-support/make/core/yaml/format.mk
 include build-support/make/core/yaml/lint.mk
 
 .PHONY: fmt-yml lint-yml
-fmt-yml: dos2unix-yml
-lint-yml: yamllint
+fmt-yml: prettier-yml
+fmt-check-yml: prettier-yml-check
+lint-yml: yamllint fmt-check-yml
 
 # Markdown
 include build-support/make/config/markdown.mk
@@ -99,18 +106,36 @@ include build-support/make/core/markdown/format.mk
 include build-support/make/core/markdown/lint.mk
 
 .PHONY: fmt-md lint-md
-fmt-md: markdownlint-fmt
-lint-md: markdownlint
+fmt-md: markdownlint-fmt prettier-md
+fmt-check-md: markdownlint prettier-md-check
+lint-md: markdownlint fmt-check-md
+
+# HTML/CSS/Web
+include build-support/make/core/html/lint.mk
+include build-support/make/core/html/format.mk
+include build-support/make/core/css/lint.mk
+include build-support/make/core/css/format.mk
+
+.PHONY: fmt-html lint-html fmt-css lint-css
+fmt-html: prettier-html
+fmt-check-html: prettier-html-check
+lint-html: fmt-check-html
+fmt-css: prettier-css
+fmt-check-css: prettier-css-check
+lint-css: fmt-check-css
+fmt-web: fmt-html fmt-css
+fmt-check-web: fmt-check-html fmt-check-css
+lint-web: fmt-check-web
 
 # Cross-language BUILD goals
 .PHONY: env-default-replicate env-default-upgrade fmt lint type-check test clean
 
-env-default-replicate: env-py-default-replicate env-sh-default-replicate env-md-default-replicate
-env-default-upgrade: env-py-default-upgrade env-sh-default-upgrade env-md-default-upgrade
+env-default-replicate: env-py-default-replicate env-sh-default-replicate env-md-default-replicate env-prettier-default-replicate
+env-default-upgrade: env-py-default-upgrade env-sh-default-upgrade env-md-default-upgrade env-prettier-default-upgrade
 
-fmt: fmt-py fmt-nb fmt-yml fmt-md fmt-sh
+fmt: fmt-py fmt-nb fmt-yml fmt-md fmt-sh fmt-html fmt-web
 
-fmt-check: fmt-check-py fmt-check-nb fmt-check-sh
+fmt-check: fmt-check-py fmt-check-nb fmt-check-sh fmt-check-web
 
 lint: lint-py lint-sh lint-nb lint-yml lint-md
 
@@ -133,7 +158,7 @@ uninstall-pre-commit-hook:
 	rm .git/hooks/pre-commit
 
 rm-envs:
-	rm -rf 3rdparty/md-env-ws/node_modules/ 3rdparty/sh-env-ws/node_modules/
+	rm -rf 3rdparty/md-env/node_modules/ 3rdparty/sh-env/node_modules/  3rdparty/prettier-env/node_modules/
 
 # ------------ SPECIFIC TO AlphaBuild ONLY -------------
 # Code to build and release a new version of AlphaBuild

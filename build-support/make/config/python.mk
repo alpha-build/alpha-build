@@ -1,4 +1,4 @@
-DEFAULT_PYTHON_ENV='3rdparty/py-env-ws'
+DEFAULT_PYTHON_ENV='3rdparty/py-env'
 
 # Config files
 MYPY_CONFIG=build-support/python/tools-config/mypy.ini
@@ -11,7 +11,7 @@ PYTEST_CONFIG=build-support/python/tools-config/pyproject.toml
 
 # Tools config
 DEFAULT_PYTEST_MARKS=""
-DEFAULT_THIRD_PARTY_DEPS_FILE=3rdparty/py-env-ws/requirements.txt
+DEFAULT_THIRD_PARTY_DEPS_FILE=$(DEFAULT_PYTHON_ENV)/requirements.txt
 DEFAULT_FIRST_PARTY_DEPS_FILE=build-support/python/packaging/first-party-libs.txt
 
 # Flags
