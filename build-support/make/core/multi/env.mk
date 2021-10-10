@@ -7,8 +7,8 @@
 
 .PHONY: env-prettier-default-upgrade
 env-prettier-default-upgrade:
-	npm --prefix $(DEFAULT_PRETTIER_ENV) install --save-dev  --registry=https://registry.npmjs.org
+	npm --prefix $(DEFAULT_PRETTIER_ENV) install prettier --save-dev  --registry=https://registry.npmjs.org
 
 .PHONY: env-prettier-default-replicate
 env-prettier-default-replicate:
-	npm --prefix $(DEFAULT_PRETTIER_ENV) ci --save-dev  --registry=https://registry.npmjs.org || echo "Check manually if it passes, since it causes make to fail unexpectedly !!!"
+	npm --prefix $(DEFAULT_PRETTIER_ENV) ci --registry=https://registry.npmjs.org || echo "Check manually if it passes, since it causes make to fail unexpectedly !!!"
