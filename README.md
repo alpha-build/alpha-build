@@ -346,9 +346,9 @@ like `lint-py` or `lint`.
 - Python:
   - Setup: `pip` / `conda`
   - Type-check: `mypy`
-  - Test: `pytest`
+  - Test: `pytest` (along with `doctest` and plugins)
   - Format + Lint: `black`, `docformatter`, `isort`, `autoflake`, `flynt`, `pre-commit`
-  - Lint only: `flake8`, `pylint`, `bandit`
+  - Lint only: `flake8`, `pylint`, `bandit` (along with plugins like `darglint`, `flake8-bugbear`)
   - Package: `pipreqs`, `shiv`
 - Jupyter:
   - Setup: `pip`
