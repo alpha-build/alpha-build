@@ -550,53 +550,53 @@ These tools are simply extremely popular.
   - vaex
   - pydantic
   - pandera (in parallel with pre-commit, Make also runs nox)
-  - ML
-    - pytorch (Make for Python, Bash and CMake; in parallel with Bazel for other languages)
-    - xgboost
-    - Determined AI (example of a more scalable Make-based infrastructure with nested Makefiles)
-  - Visualization
-    - seaborn
-  - Distributed
-    - celery (in parallel with tox and pre-commit)
-  - Stream processing
-    - faust (Make also runs pre-commit)
-  - Web
-    - requests
-    - gunicorn (in parallel with tox)
-    - sentry-python (Make also runs tox)
-  - AsyncIO (Aio-libs)
-    - aiohttp (Make also runs pre-commit)
-    - yarl
-    - aiomysql
-    - aioredis-py (Make also runs pre-commit)
-    - aiopg
-  - DevOps
-    - ansible (in parallel with tox)
-    - pytest-testinfra (in parallel with tox)
-  - Documentation
-    - sphinx: the home repo (in parallel with tox)
-    - everything that uses sphinx for documentation
-  - Packaging
-    - poetry (in parallel with tox and pre-commit)
-  - pyyaml (in parallel with tox)
-  - colorama (in parallel with tox)
-  - wrapt (Make also runs tox)
-  - pydata bottleneck
-  - facebook research
-    - mephisto
-    - demucs
-    - diffq
-    - dora
-  - apache
-    - superset (in parallel with tox and pre-commit)
-  - IBM
-    - lale (in parallel with pre-commit)
-    - compliance-trestle (Make also runs pre-commit)
-  - reddit
-    - baseplate.py
-    - baseplate.py-upgrader
-    - cqlmapper
-  - Other companies: AWS, Lyft, Microsoft, GoCardless, HewlettPackard
+- ML
+  - pytorch (Make for Python, Bash and CMake; in parallel with Bazel for other languages)
+  - xgboost
+  - Determined AI (example of a more scalable Make-based infrastructure with nested Makefiles)
+- Visualization
+  - seaborn
+- Distributed
+  - celery (in parallel with tox and pre-commit)
+- Stream processing
+  - faust (Make also runs pre-commit)
+- Web
+  - requests
+  - gunicorn (in parallel with tox)
+  - sentry-python (Make also runs tox)
+- AsyncIO (Aio-libs)
+  - aiohttp (Make also runs pre-commit)
+  - yarl
+  - aiomysql
+  - aioredis-py (Make also runs pre-commit)
+  - aiopg
+- DevOps
+  - ansible (in parallel with tox)
+  - pytest-testinfra (in parallel with tox)
+- Documentation
+  - sphinx: the home repo (in parallel with tox)
+  - everything that uses sphinx for documentation
+- Packaging
+  - poetry (in parallel with tox and pre-commit)
+- pyyaml (in parallel with tox)
+- colorama (in parallel with tox)
+- wrapt (Make also runs tox)
+- pydata bottleneck
+- facebook research
+  - mephisto
+  - demucs
+  - diffq
+  - dora
+- apache
+  - superset (in parallel with tox and pre-commit)
+- IBM
+  - lale (in parallel with pre-commit)
+  - compliance-trestle (Make also runs pre-commit)
+- reddit
+  - baseplate.py
+  - baseplate.py-upgrader
+  - cqlmapper
+- Other companies: AWS, Lyft, Microsoft, GoCardless, HewlettPackard
 
 </details>
 <!-- markdownlint-enable MD033 -->
