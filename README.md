@@ -456,7 +456,7 @@ In addition, AlphaBuild requires that the commands it builds are shorter than `g
 
 ## Detailed comparison: AlphaBuild vs Make vs Pre-commit vs Tox/Nox vs Bazel vs Pants
 
-ost small and medium popular Python open source projects use Make, Pre-commit and/or Tox/Nox with a crushing majority
+Most small and medium popular Python open source projects use Make, Pre-commit and/or Tox/Nox with a crushing majority
 for formatting, linting and/or testing and/or publishing. For the same purposes, fewer projects use a bunch of bash
 scripts or monorepo-style build tools like Bazel (or Pants, Buck, Please).
 Make, pre-commit, nox/tox work pretty well together in the same repo. IMHO Pants is the best large monorepo build tool
