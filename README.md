@@ -66,9 +66,10 @@ environment managers etc.
    11. [Generate setup.py for each sub-project](#generate-setuppy-for-each-sub-project)
    12. [Markdown badge](#markdown-badge)
 7. [Out-of-the-box tools by language](#out-of-the-box-tools-by-language)
-8. [Comparison with Pants, Bazel, Pre-commit,
-   Makefiles](#comparison-with-pants-bazel-pre-commit-and-traditional-makefiles)
+8. [High-level comparison with Pants, Bazel, Pre-commit,
+   Makefiles](#high-level-comparison-with-pants-bazel-pre-commit-and-traditional-makefiles)
 9. [Limitations](#limitations)
+10. [Detailed comparison](#detailed-comparison-alphabuild-vs-make-vs-pre-commit-vs-toxnox-vs-bazel-vs-pants)
 
 ## Platforms
 
@@ -310,12 +311,29 @@ All other tools work similarly.
 
 #### Nested Makefiles
 
-Supposing you want to have another `Makefile` for a specific project in the monorepo, just
-import everything that you need from `build-support/make/core/` and/or `build-support/make/extensions/`. To change the
-Now let's say you want to use a different config file for `mypy`. You would have 2 options, either change the path
-globally `build-support/make/config/python.mk` or, if you just want different settings for your little project use
-your inner `Makefile` to overwrite the value of the corresponding variable (that points to the config file) with the
-different path.
+Supposing you want to use a different config file for `black` for a project in your monorepo. You would have 2 options:
+change the config file globally from `build-support/make/config/python.mk` (this would affect other projects) or create
+another `Makefile` in your specific project if you just want different settings for your little project (whether this
+is a good or a bad idea is more of a philosophical debate, I would argue that globally consistent config files are
+preferable, but I acknowledge that this may be needed sometimes).
+So, to have nested `Makefile`s that work with different config files:
+
+```makefile
+# root/Makefile
+black.%:  # Add this goal to be able to delegate to inner Makefile-s
+    $(MAKE) -C $(subst .,/,$*) custom-black
+fmt-py: black black.my-proj  # Add your custom "black" goals here
+
+# root/my-proj/Makefile
+include build-support/make/core/python/format.mk
+custom-black:
+    $(eval targets := $(onpy))
+    $(MAKE) black targets="$(on)" BLACK_FLAGS="-S --config my-proj/pyproject.toml"
+```
+
+This way `make fmt-py` at the root would call the regular `black` rule but will also delegate to the inner Makefile
+`custom-black` rule to run the same tool differently. Don't forget to exclude `my-proj/` from black in the outer
+Makefile, otherwise black would be run twice (once from the outside Makefile and again from the inner one).
 
 #### Generate requirements.txt for each sub-project
 
@@ -381,7 +399,7 @@ like `lint-py` or `lint`.
 
 It is very easy to extend this list with another tool, just following the existing examples.
 
-## Comparison with Pants, Bazel, Pre-commit and traditional Makefiles
+## High-level comparison with Pants, Bazel, Pre-commit and traditional Makefiles
 
 Modern build tools like Pants or Bazel work similarly to AlphaBuild in terms of goals and targets, but they also add
 a caching layer on previous results of running the goals. While they come equipped with heavy machinery to support
@@ -435,3 +453,150 @@ selection), there is a point from where it will no longer be able to scale up. F
 from medium-sized repos/teams.
 
 In addition, AlphaBuild requires that the commands it builds are shorter than `getconf ARG_MAX` characters.
+
+## Detailed comparison: AlphaBuild vs Make vs Pre-commit vs Tox/Nox vs Bazel vs Pants
+
+ost small and medium popular Python open source projects use Make, Pre-commit and/or Tox/Nox with a crushing majority
+for formatting, linting and/or testing and/or publishing. For the same purposes, fewer projects use a bunch of bash
+scripts or monorepo-style build tools like Bazel (or Pants, Buck, Please).
+Make, pre-commit, nox/tox work pretty well together in the same repo. IMHO Pants is the best large monorepo build tool
+out there and has great potential.
+
+### Pros and cons
+
+- **Tox/Nox:**
+  - Pros:
+    - Good to run the same commands in multiple environments
+    - Cross-platform
+  - Cons:
+    - Does not scale to large repos
+    - Python-only
+  - Notes: can be called from within Make, but can also call Make and pre-commit commands
+    (see: <https://tox.wiki/en/latest/config.html#conf-allowlist_externals>)
+- **Pre-commit:**
+  - Pros:
+    - Great to manage git hooks (as the name implies)
+    - Can run over all files or over a specific set of files (slightly more advanced target selection)
+    - Sort of incremental
+  - Cons:
+    - Does not work on Windows (docs say it doesn't but in fact it does partly)
+    - Typically, very much geared towards format and lint.
+  - Notes: can be called from within Make
+- **Make:**
+  - Pros:
+    - Very flexible -> can essentially cover any tools/language (AlphaBuild is just Make with several built-in tools
+      and target selection) and any way of fetching dependencies, multiple 3rd party environments etc.
+    - Very transparent -> easy to support
+    - Cross-platform
+    - Supports nested Makefiles
+  - Cons:
+    - More scalable than pre-commit/tox/nox but not as scalable as Bazel/Pants/Buck/Please.
+  - Notes: can run pre-commit, tox/nox but can also be run from tox/nox (not from pre-commit though)
+- **Bazel:**
+  - Pros:
+    - Great for large scale projects (incremental, DAG, remote caching/execution)
+  - Cons:
+    - Need to maintain special BUILD files in every directory in which all dependencies are written again
+      (once imported in the code, twice in the BUILD files)
+    - Low tool coverage for Python/Jupyter ecosystem
+    - Support for 3rd party Python environments was not great (not sure if it is still the case)
+    - Has more sophisticated support needs (dedicated engineers and/or tuned CI infra)
+  - Notes: can be called from within Make
+- **Pants:**
+  - Pros:
+    - Great for large scale projects (incremental, DAG, remote caching/execution)
+    - Dependencies are auto-discovered in BUILD files
+    - Tool/language could be better (Pants's support for Python is better than Bazel's)
+  - Cons:
+    - Environment support: no conda, no multiple environments, no arbitrary ways to create environments, no inconsistent
+      envs
+    - No support for Windows (only for WSL)
+    - Not many tools/languages
+    - Has more sophisticated support needs (dedicated engineers and/or tuned CI infra)
+    - Does not readily support the equivalent of nested Makefiles
+- Notes:
+  - Can be called from within Make
+  - Still need to have BUILD files in every directory (much easier to work with than in Bazel)
+
+### Users by tool
+
+<!-- markdownlint-disable MD033 -->
+<details>
+  <summary>Click to expand and see who uses each tool!</summary>
+
+#### Nox, Tox, Pre-commit
+
+These tools are simply extremely popular.
+
+#### Bazel
+
+- ray
+- pytorch (**Make for Python, Bash and CMake**; in parallel with Bazel for other languages)
+- selenium (with Rake i.e. ruby make) -> example BUILD file
+  <https://github.com/SeleniumHQ/selenium/blob/trunk/py/BUILD.bazel>
+- tensorflow
+- keras
+- protobuf
+- jax (with pre-commit)
+
+#### Pants
+
+<https://www.pantsbuild.org/page/who-uses-pants>
+
+#### Make
+
+- Data
+  - pandas (in parallel with pre-commit)
+  - vaex
+  - pydantic
+  - pandera (in parallel with pre-commit, Make also runs nox)
+  - ML
+    - pytorch (Make for Python, Bash and CMake; in parallel with Bazel for other languages)
+    - xgboost
+    - Determined AI (example of a more scalable Make-based infrastructure with nested Makefiles)
+  - Visualization
+    - seaborn
+  - Distributed
+    - celery (in parallel with tox and pre-commit)
+  - Stream processing
+    - faust (Make also runs pre-commit)
+  - Web
+    - requests
+    - gunicorn (in parallel with tox)
+    - sentry-python (Make also runs tox)
+  - AsyncIO (Aio-libs)
+    - aiohttp (Make also runs pre-commit)
+    - yarl
+    - aiomysql
+    - aioredis-py (Make also runs pre-commit)
+    - aiopg
+  - DevOps
+    - ansible (in parallel with tox)
+    - pytest-testinfra (in parallel with tox)
+  - Documentation
+    - sphinx: the home repo (in parallel with tox)
+    - everything that uses sphinx for documentation
+  - Packaging
+    - poetry (in parallel with tox and pre-commit)
+  - pyyaml (in parallel with tox)
+  - colorama (in parallel with tox)
+  - wrapt (Make also runs tox)
+  - pydata bottleneck
+  - facebook research
+    - mephisto
+    - demucs
+    - diffq
+    - dora
+  - apache
+    - superset (in parallel with tox and pre-commit)
+  - IBM
+    - lale (in parallel with pre-commit)
+    - compliance-trestle (Make also runs pre-commit)
+  - reddit
+    - baseplate.py
+    - baseplate.py-upgrader
+    - cqlmapper
+  - Other companies: AWS, Lyft, Microsoft, GoCardless, HewlettPackard
+
+</details>
+<!-- markdownlint-enable MD033 -->
