@@ -500,12 +500,13 @@ great potential.
     - Cross-platform
     - Supports nested Makefiles
   - Cons:
-    - More scalable than pre-commit/tox/nox but not as scalable as Bazel/Pants/Buck/Please 
+    - More scalable than pre-commit/tox/nox but not as scalable or hermetic as Bazel/Pants/Buck/Please 
    (see https://github.com/thought-machine/please#why-please-and-not-make for details).
   - Notes: can run pre-commit, tox/nox but can also be run from tox/nox (not from pre-commit though)
 - **Bazel:**
   - Pros:
     - Great for large scale projects (incremental, DAG, remote caching/execution)
+    - Hermetic
   - Cons:
     - Need to maintain special BUILD files in every directory in which all dependencies are written again
       (once imported in the code, twice in the BUILD files)
@@ -517,17 +518,17 @@ great potential.
   - Pros:
     - Great for large scale projects (incremental, DAG, remote caching/execution)
     - Dependencies are auto-discovered in BUILD files
-    - Tool/language could be better (Pants's support for Python is better than Bazel's)
+    - Hermetic
   - Cons:
     - Environment support: no conda, no multiple environments, no arbitrary ways to create environments, no inconsistent
       envs
     - No support for Windows (only for WSL)
-    - Not many tools/languages
-    - Has more sophisticated support needs (dedicated engineers and/or tuned CI infra)
+    - Tool/language support could be better (Pants's support for Python is better than Bazel's though)
+    - Has more sophisticated support needs (e.g. dedicated engineers and/or tuned CI infra)
     - Does not readily support the equivalent of nested Makefiles
-- Notes:
-  - Can be called from within Make
-  - Still need to have BUILD files in every directory (much easier to work with than in Bazel)
+   - Notes:
+     - Can be called from within Make
+     - Still need to have BUILD files in every directory (much easier to work with than in Bazel)
 </details>
    
 ### Users by tool
