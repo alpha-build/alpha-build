@@ -456,13 +456,19 @@ In addition, AlphaBuild requires that the commands it builds are shorter than `g
 
 ## Detailed comparison: AlphaBuild vs Make vs Pre-commit vs Tox/Nox vs Bazel vs Pants
 
-Most small and medium popular Python open source projects use Make, Pre-commit and/or Tox/Nox with a crushing majority
-for formatting, linting and/or testing and/or publishing. For the same purposes, fewer projects use a bunch of bash
-scripts or monorepo-style build tools like Bazel (or Pants, Buck, Please).
-Make, pre-commit, nox/tox work pretty well together in the same repo. IMHO Pants is the best large monorepo build tool
-out there and has great potential.
+Most small/medium popular Python open source projects use Make, Pre-commit and/or Tox/Nox with a crushing majority
+for formatting, linting and/or testing and/or publishing. For the same purposes, fewer projects simply use a bunch 
+of Bash scripts or monorepo-style build tools like Bazel (or Pants, Buck, Please).
+Make, pre-commit, nox/tox work pretty well together in the same repo and are often used so. 
 
-### Pros and cons
+**Note 1:** Every time we talk about Pants we talk about Pants V2, which is a fundamentally different product from 
+Pants V1. Even Twitter gave up on Pants V1 and is moving to Bazel (see 
+https://twitter.com/jin_/status/1255133781876330497).
+
+**Note 2:** IMHO Pants (V2) is the best (but not yet perfect) build tool for large monorepos out there and has 
+great potential.
+
+### Pros and Cons
 
 <!-- markdownlint-disable MD033 -->
 <details>
@@ -506,7 +512,7 @@ out there and has great potential.
     - Support for 3rd party Python environments was not great (not sure if it is still the case)
     - Has more sophisticated support needs (dedicated engineers and/or tuned CI infra)
   - Notes: can be called from within Make
-- **Pants:**
+- **Pants V2:**
   - Pros:
     - Great for large scale projects (incremental, DAG, remote caching/execution)
     - Dependencies are auto-discovered in BUILD files
