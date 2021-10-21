@@ -464,6 +464,10 @@ out there and has great potential.
 
 ### Pros and cons
 
+<!-- markdownlint-disable MD033 -->
+<details>
+  <summary>Click to expand and see the pros and cons of each tool!</summary>
+
 - **Tox/Nox:**
   - Pros:
     - Good to run the same commands in multiple environments
@@ -517,10 +521,10 @@ out there and has great potential.
 - Notes:
   - Can be called from within Make
   - Still need to have BUILD files in every directory (much easier to work with than in Bazel)
-
+</details>
+   
 ### Users by tool
 
-<!-- markdownlint-disable MD033 -->
 <details>
   <summary>Click to expand and see who uses each tool!</summary>
 
