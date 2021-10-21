@@ -69,7 +69,7 @@ environment managers etc.
 8. [High-level comparison with Pants, Bazel, Pre-commit,
    Makefiles](#high-level-comparison-with-pants-bazel-pre-commit-and-traditional-makefiles)
 9. [Limitations](#limitations)
-10. [Detailed comparison](#detailed-comparison-alphabuild-vs-make-vs-pre-commit-vs-toxnox-vs-bazel-vs-pants)
+10. [Detailed comparison: Make vs Pre-commit vs Tox/Nox vs Bazel vs Pants](#detailed-comparison-alphabuild-vs-make-vs-pre-commit-vs-toxnox-vs-bazel-vs-pants)
 
 ## Platforms
 
