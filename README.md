@@ -500,7 +500,8 @@ great potential.
     - Cross-platform
     - Supports nested Makefiles
   - Cons:
-    - More scalable than pre-commit/tox/nox but not as scalable as Bazel/Pants/Buck/Please.
+    - More scalable than pre-commit/tox/nox but not as scalable as Bazel/Pants/Buck/Please 
+   (see https://github.com/thought-machine/please#why-please-and-not-make for details).
   - Notes: can run pre-commit, tox/nox but can also be run from tox/nox (not from pre-commit though)
 - **Bazel:**
   - Pros:
