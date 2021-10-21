@@ -9,6 +9,7 @@ black
 jupyterblack
 nbstripout
 flynt
+pyupgrade
 
 # linters
 flake8
@@ -19,6 +20,8 @@ pylint
 bandit
 shellcheck-py
 yamllint
+pydocstyle
+rstcheck
 
 # test
 pytest
