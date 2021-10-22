@@ -9,7 +9,7 @@ COMPRESSED_CORE = REPO_ROOT / "alpha_build_core.tar.gz"
 
 setup(
     name="alpha-build-core",
-    version="0.0.3beta2",
+    version="0.0.3beta4",
     description="AlphaBuild's core",
     long_description=README.read_text(),
     long_description_content_type="text/markdown",

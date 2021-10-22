@@ -16,6 +16,7 @@ REGEX_JS=".*\.js"
 REGEX_TS=".*\.ts"
 REGEX_HTML=".*\.html"
 REGEX_CSS=".*.\.css"
+REGEX_RST=".*.\.rst"
 
 # OS handling for environments
 # Don't run these with $(shell ...) here because it may result in slowness, use $(shell $(IS_WINDOWS_CMD)) at the point of use
@@ -74,6 +75,7 @@ ifneq ($(since),)
 	since_ts=$(shell git diff --name-only $(since) | grep -E $(REGEX_TS))
 	since_html=$(shell git diff --name-only $(since) | grep -E $(REGEX_HTML))
 	since_css=$(shell git diff --name-only $(since) | grep -E $(REGEX_CSS))
+	since_rst=$(shell git diff --name-only $(since) | grep -E $(REGEX_RST))
 	ifneq ($(on),)
 		# Run over all the files change since=... that appear in the defaults (i.e. in the ON<LANG> variables)
 		onpy=$(call   intersect_files,$(call solve_aliases,$(on)),$(since_py))
@@ -86,6 +88,7 @@ ifneq ($(since),)
 		onts=$(call   intersect_files,$(call solve_aliases,$(on)),$(since_ts))
 		onhtml=$(call intersect_files,$(call solve_aliases,$(on)),$(since_html))
 		oncss=$(call  intersect_files,$(call solve_aliases,$(on)),$(since_css))
+		onrst=$(call  intersect_files,$(call solve_aliases,$(on)),$(since_rst))
 	else
 		# Run over all the files change since=... that also belong to the defaults (i.e. in the ON<LANG> variables)
 		# (results in different targets for each language)
@@ -99,6 +102,7 @@ ifneq ($(since),)
 		onts=$(call   intersect_files,$(call solve_aliases,$(ONTS)),$(since_ts))
 		onhtml=$(call intersect_files,$(call solve_aliases,$(ONHTML)),$(since_html))
 		oncss=$(call  intersect_files,$(call solve_aliases,$(ONCSS)),$(since_css))
+		onrst=$(call  intersect_files,$(call solve_aliases,$(ONRST)),$(since_rst))
 	endif
 else
 	ifneq ($(on),)
@@ -115,6 +119,7 @@ else
 		onts=$(call solve_aliases,$(on))
 		onhtml=$(call solve_aliases,$(on))
 		oncss=$(call solve_aliases,$(on))
+		onrst=$(call solve_aliases,$(on))
 	else
 		# Run over the default targets
 		# (results in different targets for each language)
@@ -128,6 +133,7 @@ else
 		onts=$(call   solve_aliases,$(ONTS))
 		onhtml=$(call solve_aliases,$(ONHTML))
 		oncss=$(call  solve_aliases,$(ONCSS))
+		onrst=$(call  solve_aliases,$(ONRST))
 	endif
 endif
 

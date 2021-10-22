@@ -61,3 +61,9 @@ pylint:
 	$(eval targets := $(onpy))
 	if $(call lang,$(targets),$(REGEX_PY)); then  \
 	python -m pylint $(PYLINT_FLAGS) $(targets); fi
+
+.PHONY: pydocstyle
+pydocstyle:
+	$(eval targets := $(onpy))
+	if $(call lang,$(targets),$(REGEX_PY)); then  \
+  	python -m pydocstyle $(PYDOCSTYLE_FLAGS) $(targets); fi

@@ -364,9 +364,9 @@ like `lint-py` or `lint`.
 - Python:
   - Setup: `pip` / `conda`
   - Type-check: `mypy`
-  - Test: `pytest` (along with `doctest` and plugins)
-  - Format + Lint: `black`, `docformatter`, `isort`, `autoflake`, `flynt`, `pre-commit`
-  - Lint only: `flake8`, `pylint`, `bandit` (along with plugins like `darglint`, `flake8-bugbear`)
+  - Test: `pytest` (along with `doctest` and other plugins)
+  - Format + Lint: `black`, `docformatter`, `isort`, `autoflake`, `flynt`, `pre-commit`, `pyupgrade`
+  - Lint only: `flake8`, `pylint`, `bandit`, `pydocstyle` (along with plugins like `darglint`, `flake8-bugbear`)
   - Package: `pipreqs`, `shiv`
 - Jupyter:
   - Setup: `pip`
@@ -396,6 +396,8 @@ like `lint-py` or `lint`.
 - TypeScript:
   - Setup: `npm`
   - Format + Lint: `prettier`
+- reStructuredText Text (.rst)
+  - Lint: `rstcheck`
 
 It is very easy to extend this list with another tool, just following the existing examples.
 
