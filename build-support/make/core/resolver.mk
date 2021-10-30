@@ -17,7 +17,7 @@ REGEX_TS=".*\.ts"
 REGEX_HTML=".*\.html"
 REGEX_CSS=".*.\.css"
 REGEX_RST=".*.\.rst"
-REGEXT_SWIFT=".*.\.swfit"
+REGEX_SWIFT=".*.\.swift"
 
 # OS handling for environments
 # Don't run these with $(shell ...) here because it may result in slowness, use $(shell $(IS_WINDOWS_CMD)) at the point of use
