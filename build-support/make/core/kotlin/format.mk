@@ -9,4 +9,4 @@
 kotlin-format:
 	$(eval targets := $(onkt))
 	if $(call lang,$(targets),$(REGEX_KT)); then \
-	ktlint -a -F $(KT_FORMAT_FLAGS) $(targets); fi;
+	find $(targets) -type f -regex $(REGEX_KT) | xargs ktlint -a -F $(KT_FORMAT_FLAGS) $(targets); fi;
