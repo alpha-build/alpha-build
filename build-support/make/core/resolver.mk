@@ -18,6 +18,7 @@ REGEX_HTML=".*\.html"
 REGEX_CSS=".*.\.css"
 REGEX_RST=".*.\.rst"
 REGEX_SWIFT=".*.\.swift"
+REGEX_KT=".*.\.kt"
 
 # OS handling for environments
 # Don't run these with $(shell ...) here because it may result in slowness, use $(shell $(IS_WINDOWS_CMD)) at the point of use
@@ -78,6 +79,7 @@ ifneq ($(since),)
 	since_css=$(shell git diff --name-only $(since) | grep -E $(REGEX_CSS))
 	since_rst=$(shell git diff --name-only $(since) | grep -E $(REGEX_RST))
 	since_swift=$(shell git diff --name-only $(since) | grep -E $(REGEX_SWIFT))
+	since_kt=$(shell git diff --name-only $(since) | grep -E $(REGEX_KT))
 	ifneq ($(on),)
 		# Run over all the files change since=... that appear in the defaults (i.e. in the ON<LANG> variables)
 		onpy=$(call   intersect_files,$(call solve_aliases,$(on)),$(since_py))
@@ -92,6 +94,7 @@ ifneq ($(since),)
 		oncss=$(call  intersect_files,$(call solve_aliases,$(on)),$(since_css))
 		onrst=$(call  intersect_files,$(call solve_aliases,$(on)),$(since_rst))
 		onswift=$(call  intersect_files,$(call solve_aliases,$(on)),$(since_swift))
+		onkt=$(call  intersect_files,$(call solve_aliases,$(on)),$(since_kt))
 	else
 		# Run over all the files change since=... that also belong to the defaults (i.e. in the ON<LANG> variables)
 		# (results in different targets for each language)
@@ -107,6 +110,7 @@ ifneq ($(since),)
 		oncss=$(call  intersect_files,$(call solve_aliases,$(ONCSS)),$(since_css))
 		onrst=$(call  intersect_files,$(call solve_aliases,$(ONRST)),$(since_rst))
 		onswift=$(call  intersect_files,$(call solve_aliases,$(ONSWIFT)),$(since_swift))
+		onkt=$(call  intersect_files,$(call solve_aliases,$(ONKT)),$(since_kt))
 	endif
 else
 	ifneq ($(on),)
@@ -125,6 +129,7 @@ else
 		oncss=$(call solve_aliases,$(on))
 		onrst=$(call solve_aliases,$(on))
 		onswift=$(call solve_aliases,$(on))
+		onkt=$(call solve_aliases,$(on))
 	else
 		# Run over the default targets
 		# (results in different targets for each language)
@@ -140,6 +145,7 @@ else
 		oncss=$(call  solve_aliases,$(ONCSS))
 		onrst=$(call  solve_aliases,$(ONRST))
 		onswift=$(call  solve_aliases,$(ONSWIFT))
+		onkt=$(call  solve_aliases,$(ONKT))
 	endif
 endif
 
