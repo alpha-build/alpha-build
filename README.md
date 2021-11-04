@@ -398,7 +398,12 @@ like `lint-py` or `lint`.
   - Format + Lint: `prettier`
 - reStructuredText Text (.rst)
   - Lint: `rstcheck`
-
+- Swift:
+  - Format: `SwiftLint`, `swift-format`
+  - Lint: `SwiftLint`, `swift-format`
+- Kotlin:
+  - Format: `ktlint`
+  - Lint: `ktlint`
 It is very easy to extend this list with another tool, just following the existing examples.
 
 ## High-level comparison with Pants, Bazel, Pre-commit and traditional Makefiles
