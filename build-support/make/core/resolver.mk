@@ -35,7 +35,7 @@ endif
 ifneq ($(shell command -v g$(gnu_xargs)),)  # is MacOS (mostly)
 gnu_xargs=gxargs
 else
-gnu_xargs==xargs
+gnu_xargs=xargs
 endif
 
 # If "on" was supplied as an alias -> solve the alias, otherwise pass in the raw on
