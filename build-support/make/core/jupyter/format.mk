@@ -15,4 +15,4 @@ jblack:
 nbstripout:
 	$(eval targets := $(onnb))
 	if $(call lang,$(targets),$(REGEX_NB)); then \
-  	find $(targets) -type f -name "*.ipynb" -print | xargs python -m nbstripout $(NBSTRIPOUT_FLAGS); fi
+  	find $(targets) -type f -name "*.ipynb" -print | $(gnu_xargs) python -m nbstripout $(NBSTRIPOUT_FLAGS); fi

@@ -10,4 +10,4 @@ prettier-css:
 	$(eval targets := $(oncss))
 	$(eval prettier := $(PRETTIER_BIN))
 	if $(call lang,$(targets),$(REGEX_CSS)); then \
-	find $(targets) -type f -regex $(REGEX_CSS) | xargs --no-run-if-empty $(prettier) -w $(PRETTIER_FLAGS); fi;
+	find $(targets) -type f -regex $(REGEX_CSS) | $(gnu_xargs) --no-run-if-empty $(prettier) -w $(PRETTIER_FLAGS); fi;

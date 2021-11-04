@@ -7,7 +7,7 @@
 
 .PHONY: env-md-default-upgrade
 env-md-default-upgrade:
-	cat $(DEFAULT_NPM_DEV_MD_DEPS) | tr -d "\r" | xargs npm --prefix $(DEFAULT_MD_ENV) install --save-dev  --registry=https://registry.npmjs.org
+	cat $(DEFAULT_NPM_DEV_MD_DEPS) | tr -d "\r" | $(gnu_xargs) npm --prefix $(DEFAULT_MD_ENV) install --save-dev  --registry=https://registry.npmjs.org
 
 .PHONY: env-md-default-replicate
 env-md-default-replicate:

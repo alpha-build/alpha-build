@@ -7,7 +7,7 @@
 
 .PHONY: clean-pyc
 clean-pyc:
-	find . -name *.pyc | xargs rm -f && find . -name *.pyo | xargs rm -f;
+	find . -name *.pyc | $(gnu_xargs) rm -f && find . -name *.pyo | $(gnu_xargs) rm -f;
 
 .PHONY: clean-pytest
 clean-pytest:

@@ -7,4 +7,4 @@
 
 .PHONY: clean-hio
 clean-hio:
-	find . -name *.hi | xargs rm -f && find . -name *.o | xargs rm -f;
+	find . -name *.hi | $(gnu_xargs) rm -f && find . -name *.o | $(gnu_xargs) rm -f;

@@ -10,4 +10,4 @@ prettier-ts-check:
 	$(eval targets := $(onts))
 	$(eval prettier := $(PRETTIER_BIN))
 	if $(call lang,$(targets),$(REGEX_TS)); then \
-	find $(targets) -type f -regex $(REGEX_TS) | xargs --no-run-if-empty $(prettier) -c $(PRETTIER_FLAGS); fi;
+	find $(targets) -type f -regex $(REGEX_TS) | $(gnu_xargs) --no-run-if-empty $(prettier) -c $(PRETTIER_FLAGS); fi;

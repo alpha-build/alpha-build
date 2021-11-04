@@ -10,4 +10,4 @@ prettier-html:
 	$(eval targets := $(onhtml))
 	$(eval prettier := $(PRETTIER_BIN))
 	if $(call lang,$(targets),$(REGEX_HTML)); then \
-	find $(targets) -type f -regex $(REGEX_HTML) | xargs --no-run-if-empty $(prettier) -w $(PRETTIER_FLAGS); fi;
+	find $(targets) -type f -regex $(REGEX_HTML) | $(gnu_xargs) --no-run-if-empty $(prettier) -w $(PRETTIER_FLAGS); fi;
