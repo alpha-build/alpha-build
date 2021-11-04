@@ -11,7 +11,7 @@
 ](https://jupyter.org/)
 [![supports bash](https://img.shields.io/badge/Supports%20-Bash-darkgreen?style=flat&logo=GNUBash)
 ](https://www.gnu.org/software/bash/)
-[![supports kt](https://img.shields.io/badge/Supports%20-Kotlin-navy?style=flat&logo=Kotlin&logoColor=navy)
+[![supports kt](https://img.shields.io/badge/Supports%20-Kotlin-violet?style=flat&logo=Kotlin&logoColor=violet)
 ](https://kotlinlang.org/)
 [![supports swift](https://img.shields.io/badge/Supports%20-Swift-orange?style=flat&logo=Swift&logoColor=orange)
 ](https://developer.apple.com/swift/)
