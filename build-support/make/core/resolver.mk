@@ -32,7 +32,7 @@ else
 gnu_find=find
 endif
 
-ifneq ($(shell command -v $(gnu_xargs)),)  # is MacOS (mostly)
+ifneq ($(shell command -v gxargs),)  # is MacOS (mostly)
 gnu_xargs=gxargs
 else
 gnu_xargs=xargs
