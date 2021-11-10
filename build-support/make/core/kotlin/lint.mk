@@ -9,4 +9,4 @@
 ktlint-check:
 	$(eval targets := $(onkt))
 	if $(call lang,$(targets),$(REGEX_KT)); then \
-	find $(targets) -type f -regex $(REGEX_KT) | xargs ktlint $(KT_FORMAT_FLAGS) $(targets); fi;
+	find $(targets) -type f -regex $(REGEX_KT) | $(gnu_xargs) --no-run-if-empty ktlint $(KT_FORMAT_FLAGS) $(targets); fi;
