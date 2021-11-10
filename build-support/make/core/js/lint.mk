@@ -10,4 +10,4 @@ prettier-js-check:
 	$(eval targets := $(onjs))
 	$(eval prettier := $(PRETTIER_BIN))
 	if $(call lang,$(targets),$(REGEX_JS)); then \
-	find $(targets) -type f -regex $(REGEX_JS) | xargs --no-run-if-empty $(prettier) -c $(PRETTIER_FLAGS); fi;
+	find $(targets) -type f -regex $(REGEX_JS) | $(gnu_xargs) --no-run-if-empty $(prettier) -c $(PRETTIER_FLAGS); fi;

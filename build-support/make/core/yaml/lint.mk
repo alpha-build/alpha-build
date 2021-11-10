@@ -16,4 +16,4 @@ prettier-yml-check:
 	$(eval targets := $(onyml))
 	$(eval prettier := $(PRETTIER_BIN))
 	if $(call lang,$(targets),$(REGEX_YML)); then \
-	find $(targets) -type f -regex $(REGEX_YML) | xargs --no-run-if-empty $(prettier) -c $(PRETTIER_FLAGS); fi;
+	find $(targets) -type f -regex $(REGEX_YML) | $(gnu_xargs) --no-run-if-empty $(prettier) -c $(PRETTIER_FLAGS); fi;

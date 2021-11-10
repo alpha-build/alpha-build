@@ -9,4 +9,4 @@
 pre-commit-tool:
 	$(eval targets := $(onpy) $(onsh) $(onyml))
 	if $(call lang,$(targets),$(REGEX_PY)); then  \
-	find $(targets) -type f -regex $(REGEX_PY) -print0 | xargs -0 pre-commit run $(PRE_COMMIT_FLAGS) --files; fi
+	find $(targets) -type f -regex $(REGEX_PY) -print0 | $(gnu_xargs) -0 pre-commit run $(PRE_COMMIT_FLAGS) --files; fi

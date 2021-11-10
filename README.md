@@ -11,14 +11,18 @@
 ](https://jupyter.org/)
 [![supports bash](https://img.shields.io/badge/Supports%20-Bash-darkgreen?style=flat&logo=GNUBash)
 ](https://www.gnu.org/software/bash/)
-[![supports markdown](https://img.shields.io/badge/Supports%20-Markdown-black?style=flat&logo=Markdown)
-](https://www.markdownguide.org/)
-[![supports haskell](https://img.shields.io/badge/Supports%20-Haskell-purple?style=flat&logo=Haskell&logoColor=violet)
-](https://www.haskell.org/)
+[![supports kt](https://img.shields.io/badge/Supports%20-Kotlin-violet?style=flat&logo=Kotlin&logoColor=violet)
+](https://kotlinlang.org/)
+[![supports swift](https://img.shields.io/badge/Supports%20-Swift-orange?style=flat&logo=Swift&logoColor=orange)
+](https://developer.apple.com/swift/)
 [![supports js](https://img.shields.io/badge/Supports%20-JavaScript-yellow?style=flat&logo=JavaScript&logoColor=yellow)
 ](https://www.javascript.com/)
 [![supports js](https://img.shields.io/badge/Supports%20-TypeScript-blue?style=flat&logo=TypeScript&logoColor=blue)
 ](https://www.typescriptlang.org/)
+[![supports haskell](https://img.shields.io/badge/Supports%20-Haskell-purple?style=flat&logo=Haskell&logoColor=violet)
+](https://www.haskell.org/)
+[![supports markdown](https://img.shields.io/badge/Supports%20-Markdown-black?style=flat&logo=Markdown)
+](https://www.markdownguide.org/)
 [![supports html5](https://img.shields.io/badge/Supports%20-HTML-orange?style=flat&logo=HTML5&logoColor=orange)
 ](https://en.wikipedia.org/wiki/HTML5)
 [![supports linux](https://img.shields.io/badge/Supports%20-Linux-yellow?style=flat&logo=Linux)
@@ -398,7 +402,12 @@ like `lint-py` or `lint`.
   - Format + Lint: `prettier`
 - reStructuredText Text (.rst)
   - Lint: `rstcheck`
-
+- Swift:
+  - Format: `SwiftLint`, `swift-format`
+  - Lint: `SwiftLint`, `swift-format`
+- Kotlin:
+  - Format: `ktlint`
+  - Lint: `ktlint`
 It is very easy to extend this list with another tool, just following the existing examples.
 
 ## High-level comparison with Pants, Bazel, Pre-commit and traditional Makefiles

@@ -32,6 +32,12 @@ else
 gnu_find=find
 endif
 
+ifneq ($(shell command -v gxargs),)  # is MacOS (mostly)
+gnu_xargs=gxargs
+else
+gnu_xargs=xargs
+endif
+
 # If "on" was supplied as an alias -> solve the alias, otherwise pass in the raw on
 # Args:
 #	- $1: named file/dir target(s) specifier (i.e. the "on")

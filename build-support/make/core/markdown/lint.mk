@@ -17,4 +17,4 @@ prettier-md-check:
 	$(eval targets := $(onmd))
 	$(eval prettier := $(PRETTIER_BIN))
 	if $(call lang,$(targets),$(REGEX_MD)); then \
-	find $(targets) -type f -regex $(REGEX_MD) | xargs --no-run-if-empty $(prettier) -c $(PRETTIER_FLAGS); fi;
+	find $(targets) -type f -regex $(REGEX_MD) | $(gnu_xargs) --no-run-if-empty $(prettier) -c $(PRETTIER_FLAGS); fi;

@@ -9,11 +9,11 @@
 dos2unix-yml:
 	$(eval targets := $(onyml))
 	if $(call lang,$(targets),$(REGEX_YML)); then \
-	find $(targets) -type f -regex $(REGEX_YML) | xargs --no-run-if-empty dos2unix; fi;
+	find $(targets) -type f -regex $(REGEX_YML) | $(gnu_xargs) --no-run-if-empty dos2unix; fi;
 
 .PHONY: prettier-yml
 prettier-yml:
 	$(eval targets := $(onyml))
 	$(eval prettier := $(PRETTIER_BIN))
 	if $(call lang,$(targets),$(REGEX_YML)); then \
-	find $(targets) -type f -regex $(REGEX_YML) | xargs --no-run-if-empty $(prettier) -w $(PRETTIER_FLAGS); fi;
+	find $(targets) -type f -regex $(REGEX_YML) | $(gnu_xargs) --no-run-if-empty $(prettier) -w $(PRETTIER_FLAGS); fi;

@@ -7,7 +7,7 @@
 
 .PHONY: env-sh-default-replicate
 env-sh-default-upgrade:
-	cat $(NPM_DEV_SH_DEPS) | tr -d "\r" | xargs npm --prefix $(DEFAULT_SH_ENV) install --save-dev --registry=https://registry.npmjs.org
+	cat $(NPM_DEV_SH_DEPS) | tr -d "\r" | $(gnu_xargs) npm --prefix $(DEFAULT_SH_ENV) install --save-dev --registry=https://registry.npmjs.org
 	conda install go-shfmt -c conda-forge -y
 
 .PHONY: env-sh-default-upgrade

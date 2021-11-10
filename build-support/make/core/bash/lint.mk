@@ -10,7 +10,7 @@
 shellcheck:
 	$(eval targets := $(onsh))
 	if $(call lang,$(targets),$(REGEX_SH)); then \
-	find $(targets) -type f -iname "*.sh" | xargs shellcheck $(SHELLCHECK_FLAGS); fi
+	find $(targets) -type f -iname "*.sh" | $(gnu_xargs) shellcheck $(SHELLCHECK_FLAGS); fi
 
 .PHONY: shfmt-check
 shfmt-check:
