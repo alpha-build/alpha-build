@@ -5,15 +5,10 @@
 # - updating the config files in build-support/make/config/ to configure tools for your own use case
 # - writing a new custom rule, in build-support/make/extensions/<lang>/ and import it in the main Makefile
 
-.PHONY: dos2unix-yml
-dos2unix-yml:
-	$(eval targets := $(onyml))
-	if $(call lang,$(targets),$(REGEX_YML)); then \
-	find $(targets) -type f -regex $(REGEX_YML) | xargs --no-run-if-empty dos2unix; fi;
+.PHONY: env-prettier-default-upgrade
+env-prettier-default-upgrade:
+	npm --prefix $(DEFAULT_PRETTIER_ENV) install prettier --save-dev  --registry=https://registry.npmjs.org
 
-.PHONY: prettier-yml
-prettier-yml:
-	$(eval targets := $(onyml))
-	$(eval prettier := $(PRETTIER_BIN))
-	if $(call lang,$(targets),$(REGEX_YML)); then \
-	find $(targets) -type f -regex $(REGEX_YML) | xargs --no-run-if-empty $(prettier) -w $(PRETTIER_FLAGS); fi;
+.PHONY: env-prettier-default-replicate
+env-prettier-default-replicate:
+	npm --prefix $(DEFAULT_PRETTIER_ENV) ci --registry=https://registry.npmjs.org || echo "Check manually if it passes, since it causes make to fail unexpectedly !!!"

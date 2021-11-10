@@ -1,11 +1,8 @@
-DEFAULT_PYTHON_ENV='3rdparty/py-env-ws'
-
-# Common args
-line_len=120
+DEFAULT_PYTHON_ENV='3rdparty/py-env'
 
 # Config files
 MYPY_CONFIG=build-support/python/tools-config/mypy.ini
-PYLINT_CONFIG=build-support/python/tools-config/.pylintrc
+PYLINT_CONFIG=build-support/python/tools-config/pylintrc
 FLAKE8_CONFIG=build-support/python/tools-config/.flake8
 ISORT_CONFIG=build-support/python/tools-config/pyproject.toml
 BLACK_CONFIG=build-support/python/tools-config/pyproject.toml
@@ -14,7 +11,7 @@ PYTEST_CONFIG=build-support/python/tools-config/pyproject.toml
 
 # Tools config
 DEFAULT_PYTEST_MARKS=""
-DEFAULT_THIRD_PARTY_DEPS_FILE=3rdparty/py-env-ws/requirements.txt
+DEFAULT_THIRD_PARTY_DEPS_FILE=$(DEFAULT_PYTHON_ENV)/requirements.txt
 DEFAULT_FIRST_PARTY_DEPS_FILE=build-support/python/packaging/first-party-libs.txt
 
 # Flags
@@ -27,3 +24,4 @@ BANDIT_FLAGS=--configfile $(BANDIT_CONFIG)
 PYLINT_FLAGS=--rcfile=$(PYLINT_CONFIG)
 PYTEST_FLAGS=-c $(PYTEST_CONFIG)
 MYPY_FLAGS=--config-file $(MYPY_CONFIG)
+PIPREQS_FLAGS=--print

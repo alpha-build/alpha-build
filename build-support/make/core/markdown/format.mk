@@ -11,3 +11,10 @@ markdownlint-fmt:
 	$(eval mdlint := $(MARKDOWNLINT_BIN))
 	if $(call lang,$(targets),$(REGEX_MD)); then \
 	$(mdlint) $(MARKDOWNLINT_FLAGS) --fix $(targets); fi;
+
+.PHONY: prettier-md
+prettier-md:
+	$(eval targets := $(onmd))
+	$(eval prettier := $(PRETTIER_BIN))
+	if $(call lang,$(targets),$(REGEX_MD)); then \
+	find $(targets) -type f -regex $(REGEX_MD) | xargs --no-run-if-empty $(prettier) -w $(PRETTIER_FLAGS); fi;

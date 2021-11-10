@@ -10,3 +10,10 @@ yamllint:
 	$(eval targets := $(onyml))
 	if $(call lang,$(targets),$(REGEX_YML)); then \
 	python -m yamllint $(YAMLLINT_FLAGS) $(targets); fi
+
+.PHONY: prettier-yml-check
+prettier-yml-check:
+	$(eval targets := $(onyml))
+	$(eval prettier := $(PRETTIER_BIN))
+	if $(call lang,$(targets),$(REGEX_YML)); then \
+	find $(targets) -type f -regex $(REGEX_YML) | xargs --no-run-if-empty $(prettier) -c $(PRETTIER_FLAGS); fi;

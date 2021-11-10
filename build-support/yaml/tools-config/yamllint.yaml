@@ -1,8 +1,7 @@
 ---
-
 yaml-files:
-  - '*.yaml'
-  - '*.yml'
+  - "*.yaml"
+  - "*.yml"
 
 rules:
   braces: enable
@@ -13,6 +12,9 @@ rules:
   commas: enable
   comments:
     level: warning
+    require-starting-space: true
+    ignore-shebangs: true
+    min-spaces-from-content: 1
   comments-indentation:
     level: warning
   document-end: disable

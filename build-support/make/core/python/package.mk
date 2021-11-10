@@ -5,6 +5,12 @@
 # - updating the config files in build-support/make/config/ to configure tools for your own use case
 # - writing a new custom rule, in build-support/make/extensions/<lang>/ and import it in the main Makefile
 
+.PHONY: pipreqs
+pipreqs:
+	$(eval targets := $(onpy))
+	@if $(call lang,$(targets),$(REGEX_PY)); then  \
+  	for target in $(targets); do pipreqs $(PIPREQS_FLAGS) $$target; done; fi
+
 .PHONY: pip-install-local
 pip-install-local:
 	pip install --no-deps --upgrade $(PY_LIBS)

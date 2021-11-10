@@ -5,15 +5,14 @@
 # - updating the config files in build-support/make/config/ to configure tools for your own use case
 # - writing a new custom rule, in build-support/make/extensions/<lang>/ and import it in the main Makefile
 
-.PHONY: dos2unix-yml
-dos2unix-yml:
-	$(eval targets := $(onyml))
-	if $(call lang,$(targets),$(REGEX_YML)); then \
-	find $(targets) -type f -regex $(REGEX_YML) | xargs --no-run-if-empty dos2unix; fi;
+.PHONY: swift-format
+swift-format:
+	$(eval targets := $(onswift))
+	if $(call lang,$(targets),$(REGEX_SWIFT)); then \
+	swift-format -m format $(SWIFT_FORMAT_FLAGS) $(targets); fi;
 
-.PHONY: prettier-yml
-prettier-yml:
-	$(eval targets := $(onyml))
-	$(eval prettier := $(PRETTIER_BIN))
-	if $(call lang,$(targets),$(REGEX_YML)); then \
-	find $(targets) -type f -regex $(REGEX_YML) | xargs --no-run-if-empty $(prettier) -w $(PRETTIER_FLAGS); fi;
+.PHONY: swiftlint-format
+swiftlint-format:
+	$(eval targets := $(onswift))
+	if $(call lang,$(targets),$(REGEX_SWIFT)); then \
+	swiftlint lint --fix $(SWIFTLINT_FLAGS) $(targets); fi;

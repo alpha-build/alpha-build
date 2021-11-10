@@ -1,5 +1,5 @@
 [tool.pytest.ini_options]
-addopts = "-vv --durations=10 --cache-clear"
+addopts = "-vv --durations=10 --cache-clear --doctest-modules"
 
 [tool.isort]
 line_length = 120

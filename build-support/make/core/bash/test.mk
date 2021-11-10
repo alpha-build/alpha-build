@@ -9,5 +9,5 @@
 bats:
 	$(eval targets := $(onsh))
 	$(eval batsexec := $(BATS_BIN))
-	if $(call lang,$(targets),"*\.bats"); then \
+	if $(call lang,$(targets),".*\.bats"); then \
   	./$(batsexec) $(BATS_FLAGS) -r $(targets); fi

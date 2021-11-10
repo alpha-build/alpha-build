@@ -34,3 +34,9 @@ flynt:
 	$(eval targets := $(onpy))
 	if $(call lang,$(targets),$(REGEX_PY)); then  \
 	python -m flynt $(FLYNT_FLAGS) $(targets); fi
+
+.PHONY: pyupgrade
+pyupgrade:
+	$(eval targets := $(onpy))
+	if $(call lang,$(targets),$(REGEX_PY)); then  \
+	find $(targets) -type f -regex $(REGEX_PY) -print0 | xargs -0 python -m pyupgrade $(PYUPGRADE_FLAGS) ; fi

@@ -17,6 +17,8 @@ REGEX_TS=".*\.ts"
 REGEX_HTML=".*\.html"
 REGEX_CSS=".*.\.css"
 REGEX_RST=".*.\.rst"
+REGEX_SWIFT=".*.\.swift"
+REGEX_KT=".*.\.kt"
 
 # OS handling for environments
 # Don't run these with $(shell ...) here because it may result in slowness, use $(shell $(IS_WINDOWS_CMD)) at the point of use
@@ -56,9 +58,7 @@ lang = [[ ! -z $(if $(shell echo "$1"),$(if $(shell $(gnu_find) $(call solve_ali
 # Args:
 #	- $1: a list of directories separated by spaces (as this is bash)
 #   - $2: a list of files (paths starting from repo root)
-# NOTE: Does not work if paths/file names contain spaces, XYZ is some file that does not exist, used to have a value for the final -o
 intersect_files = $(shell $(gnu_find) $(call solve_aliases,$1) $(foreach file,$2, -wholename $(file) -o) -wholename XYZ)
-
 
 # Function:
 # 	- resolve_since (only defined if since=<git-revision> is provided from the console)
@@ -82,26 +82,88 @@ intersect_files = $(shell $(gnu_find) $(call solve_aliases,$1) $(foreach file,$2
 #         - ensure we only run the checks over the targets listed in the global $(ON<lang>) not across any changed <lang> file
 
 ifneq ($(since),)
-	resolve_since=$(shell git diff --name-only $(since) | grep -E $1)
+	# Filter git diff --name-only output for the right extension and find the path in the original targets such that we:
+	# 1. ensure the files exist (git diff --name-only also reports files that were deleted)
+	# 2. ensure we only run the checks over the targets listed in the global $(ON<lang>) not across any changed <lang> file
+	since_py=$(shell  git diff --name-only $(since) | grep -E $(REGEX_PY) | grep -v ".pylintrc")
+	since_sh=$(shell  git diff --name-only $(since) | grep -E $(REGEX_SH))
+	since_hs=$(shell  git diff --name-only $(since) | grep -E $(REGEX_HS))
+	since_nb=$(shell  git diff --name-only $(since) | grep -E $(REGEX_NB))
+	since_md=$(shell  git diff --name-only $(since) | grep -E $(REGEX_MD))
+	since_yml=$(shell git diff --name-only $(since) | grep -E $(REGEX_YML))
+	since_js=$(shell git diff --name-only $(since) | grep -E $(REGEX_JS))
+	since_ts=$(shell git diff --name-only $(since) | grep -E $(REGEX_TS))
+	since_html=$(shell git diff --name-only $(since) | grep -E $(REGEX_HTML))
+	since_css=$(shell git diff --name-only $(since) | grep -E $(REGEX_CSS))
+	since_rst=$(shell git diff --name-only $(since) | grep -E $(REGEX_RST))
+	since_swift=$(shell git diff --name-only $(since) | grep -E $(REGEX_SWIFT))
+	since_kt=$(shell git diff --name-only $(since) | grep -E $(REGEX_KT))
 	ifneq ($(on),)
-		# Run over all the files change since=... that appear in on=...
-		# (results in different targets for each language)
-		resolve_targets=$(call intersect_files,$(call solve_aliases,$(on)),$(call $3,$(call resolve_since,$1)))
+		# Run over all the files change since=... that appear in the defaults (i.e. in the ON<LANG> variables)
+		onpy=$(call   intersect_files,$(call solve_aliases,$(on)),$(since_py))
+		onsh=$(call   intersect_files,$(call solve_aliases,$(on)),$(since_sh))
+		onhs=$(call   intersect_files,$(call solve_aliases,$(on)),$(since_hs))
+		onnb=$(call   intersect_files,$(call solve_aliases,$(on)),$(since_nb))
+		onmd=$(call   intersect_files,$(call solve_aliases,$(on)),$(since_md))
+		onyml=$(call  intersect_files,$(call solve_aliases,$(on)),$(since_yml))
+		onjs=$(call   intersect_files,$(call solve_aliases,$(on)),$(since_js))
+		onts=$(call   intersect_files,$(call solve_aliases,$(on)),$(since_ts))
+		onhtml=$(call intersect_files,$(call solve_aliases,$(on)),$(since_html))
+		oncss=$(call  intersect_files,$(call solve_aliases,$(on)),$(since_css))
+		onrst=$(call  intersect_files,$(call solve_aliases,$(on)),$(since_rst))
+		onswift=$(call  intersect_files,$(call solve_aliases,$(on)),$(since_swift))
+		onkt=$(call  intersect_files,$(call solve_aliases,$(on)),$(since_kt))
 	else
 		# Run over all the files change since=... that appear in the defaults (i.e. in the ON<LANG> variables)
 		# (results in different targets for each language)
-		resolve_targets=$(call intersect_files,$(call solve_aliases,$2),$(call $3,$(call resolve_since,$1)))
+		onpy=$(call   intersect_files,$(call solve_aliases,$(ONPY)),$(since_py))
+		onsh=$(call   intersect_files,$(call solve_aliases,$(ONSH)),$(since_sh))
+		onhs=$(call   intersect_files,$(call solve_aliases,$(ONHS)),$(since_hs))
+		onnb=$(call   intersect_files,$(call solve_aliases,$(ONNB)),$(since_nb))
+		onmd=$(call   intersect_files,$(call solve_aliases,$(ONMD)),$(since_md))
+		onyml=$(call  intersect_files,$(call solve_aliases,$(ONYML)),$(since_yml))
+		onjs=$(call   intersect_files,$(call solve_aliases,$(ONJS)),$(since_js))
+		onts=$(call   intersect_files,$(call solve_aliases,$(ONTS)),$(since_ts))
+		onhtml=$(call intersect_files,$(call solve_aliases,$(ONHTML)),$(since_html))
+		oncss=$(call  intersect_files,$(call solve_aliases,$(ONCSS)),$(since_css))
+		onrst=$(call  intersect_files,$(call solve_aliases,$(ONRST)),$(since_rst))
+		onswift=$(call  intersect_files,$(call solve_aliases,$(ONSWIFT)),$(since_swift))
+		onkt=$(call  intersect_files,$(call solve_aliases,$(ONKT)),$(since_kt))
 	endif
 else
 	ifneq ($(on),)
 		# Run over the targets specified in on=...
 		# (results in the same targets for all languages)
 		# It is better not to enumerate all the files because if "on" comprises many many files we may hit the limit
-		resolve_targets=$(call solve_aliases,$(on))
+		onpy=$(call  solve_aliases,$(on))
+		onsh=$(call  solve_aliases,$(on))
+		onhs=$(call  solve_aliases,$(on))
+		onnb=$(call  solve_aliases,$(on))
+		onmd=$(call  solve_aliases,$(on))
+		onyml=$(call solve_aliases,$(on))
+		onjs=$(call solve_aliases,$(on))
+		onts=$(call solve_aliases,$(on))
+		onhtml=$(call solve_aliases,$(on))
+		oncss=$(call solve_aliases,$(on))
+		onrst=$(call solve_aliases,$(on))
+		onswift=$(call solve_aliases,$(on))
+		onkt=$(call solve_aliases,$(on))
 	else
 		# Run over the default targets
 		# (results in different targets for each language)
-		resolve_targets=$(call solve_aliases,$2)
+		onpy=$(call   solve_aliases,$(ONPY))
+		onsh=$(call   solve_aliases,$(ONSH))
+		onhs=$(call   solve_aliases,$(ONHS))
+		onnb=$(call   solve_aliases,$(ONNB))
+		onmd=$(call   solve_aliases,$(ONMD))
+		onyml=$(call  solve_aliases,$(ONYML))
+		onjs=$(call   solve_aliases,$(ONJS))
+		onts=$(call   solve_aliases,$(ONTS))
+		onhtml=$(call solve_aliases,$(ONHTML))
+		oncss=$(call  solve_aliases,$(ONCSS))
+		onrst=$(call  solve_aliases,$(ONRST))
+		onswift=$(call  solve_aliases,$(ONSWIFT))
+		onkt=$(call  solve_aliases,$(ONKT))
 	endif
 endif
 
