@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-CHECKOUT_ROOT=$(realpath "${CHECKOUT_ROOT:-$(dirname "${BASH_SOURCE[0]}")/../..}")
+CHECKOUT_ROOT=$(realpath "${CHECKOUT_ROOT:-$(git rev-parse --show-toplevel)}")
 
 # Imports
 # shellcheck source=build-support/git-bash-integration/utils.sh
