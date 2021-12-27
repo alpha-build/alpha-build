@@ -10,6 +10,7 @@ jupyterblack
 nbstripout
 flynt
 pyupgrade
+shfmt-py
 
 # linters
 flake8
