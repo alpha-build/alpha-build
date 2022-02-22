@@ -4,8 +4,14 @@ SHELL := /usr/bin/env bash
 # run sequentially
 MAKEFLAGS += -j1
 
+# resolver.mk and helpers.mk contain the AlphaBuild core logic
+# Because some rules may be long, the Makefile is split in several smaller files (they all belong to the same namespace).
+# It is recommended to keep all "nested" rules in this file if possible.
+include build-support/alpha-build/core/resolver.mk  # Utilities to resolve targets
+include build-support/alpha-build/core/helpers.mk
+
 # Set PYTHONPATH
-PY_SOURCES_ROOTS=app_iqor:app_paper_plane:lib_py_utils
+PY_SOURCES_ROOTS=app_iqor:app_paper_plane:lib_py_utils # (taken from https://github.com/cristianmatache/workspace)
 include build-support/alpha-build/core/python/pythonpath.mk  # Let AlphaBuild set PYTHONPATH based on PY_SOURCES_ROOTS
 
 # Aliases (short names given to one or more paths, can be used to define the default targets,)
@@ -30,11 +36,6 @@ include build-support/alpha-build/config/python.mk
 include build-support/alpha-build/config/yaml.mk
 include build-support/alpha-build/config/jupyter.mk
 include build-support/alpha-build/config/markdown.mk
-
-# Because some rules may be long, the Makefile is split in several smaller files (they all belong to the same namespace).
-# It is recommended to keep all "nested" rules in this file if possible.
-include build-support/alpha-build/core/resolver.mk  # Utilities to resolve targets
-include build-support/alpha-build/core/helpers.mk
 
 # Targets - for packaging (e.g. generation of requirements.txt files)
 PY_LIBS=lib_py_utils/  # can be pip-install-ed
@@ -164,13 +165,17 @@ rm-envs:
 
 # ------------ SPECIFIC TO AlphaBuild ONLY -------------
 # Code to build and release a new version of AlphaBuild
-build-wheel:
+build-wheel-core:
 	rm alpha_build_core.tar.gz || echo "alpha_build_core.tar.gz does not exist yet"
 	tar -cvzf alpha_build_core.tar.gz build-support/alpha-build/core
 	python build-support/alpha-build/core/setup.py bdist_wheel
 
-publish-wheel: clean-py build-wheel
+publish-wheel-core: clean-py build-wheel-core
 	twine upload --repository-url https://test.pypi.org/legacy/ dist/*
+
+build-archive-utils:
+	rm alpha_build_utils.tar.gz || echo "alpha_build_utils.tar.gz does not exist yet"
+	tar -cvzf alpha_build_core.tar.gz build-support/alpha-build/core
 
 # Example upgrade script from a monorepo that uses AlphaBuild
 # pip install -i https://test.pypi.org/simple/ alpha-build-core --target tmp/
