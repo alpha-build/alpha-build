@@ -10,5 +10,5 @@ pytest:
 	$(eval targets := $(onpy))
 	$(eval marks := $(DEFAULT_PYTEST_MARKS))
 	if $(call lang,$(targets),$(REGEX_PY)); then \
-  	python -m coverage run -m pytest --rootdir=. -m $(marks) $(PYTEST_FLAGS) $(targets) && python -m coverage html; fi
+  	python -m pytest --rootdir=. -m $(marks) $(PYTEST_FLAGS) $(targets); fi
 
