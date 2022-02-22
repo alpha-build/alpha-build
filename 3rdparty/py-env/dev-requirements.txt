@@ -11,6 +11,7 @@ nbstripout
 flynt
 pyupgrade
 shfmt-py
+rstfmt
 
 # linters
 flake8
@@ -31,5 +32,6 @@ coverage
 # packaging
 pipreqs
 shiv
+twine
 
 pre-commit

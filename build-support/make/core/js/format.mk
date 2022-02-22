@@ -5,6 +5,10 @@
 # - updating the config files in build-support/make/config/ to configure tools for your own use case
 # - writing a new custom rule, in build-support/make/extensions/<lang>/ and import it in the main Makefile
 
+ifndef PRETTIER_BIN
+	PRETTIER_BIN=prettier
+endif
+
 .PHONY: prettier-js
 prettier-js:
 	$(eval targets := $(onjs))
