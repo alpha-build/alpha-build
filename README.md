@@ -218,11 +218,11 @@ If you want to learn more about the API of a specific goal, check the source cod
 - **build-support/:** Makefile library inspired by Pants/Bazel to run linters, formatters, test frameworks, type
   checkers, packers etc. on a variety of languages (Python, Jupyter Notebooks, Bash, Haskell, YAML, Markdown)
   - The flags used per-tool (e.g. setting the paths to config files) can be found in
-    `build-support/make/config/<lang>.mk`
-  - The core part of AlphaBuild lives in `build-support/make/core/`, this comprises the build-system backbone
+    `build-support/alpha-build/config/<lang>.mk`
+  - The core part of AlphaBuild lives in `build-support/alpha-build/core/`, this comprises the build-system backbone
     `resolver.mk` and recipes to run lots of readily-available tools. This should be the same for all monorepos that
     use AlphaBuild.
-  - By convention, repo-specific custom goals go in `build-support/make/extensions/` following the examples in `core`.
+  - By convention, repo-specific custom goals go in `build-support/alpha-build/extensions/` following the examples in `core`.
   - `build-support/<other-programming-lang-than-make>/` contain things like config files for each tool and other files
     required for your custom AlphaBuild goals.
 
@@ -264,7 +264,7 @@ pipelines on a per sub-project basis, is effortless with AlphaBuild.
 #### Upgrade
 
 To upgrade an existing installation if new tools are added or changes are made to the target resolution infrastructure,
-one would simply need to replace the `lib-support/make/core` directory. To do that please run:
+one would simply need to replace the `lib-support/alpha-build/core` directory. To do that please run:
 
 ```bash
 pip install alpha-build-core --target tmp/
@@ -279,9 +279,9 @@ Let's say, for example, you don't want to run `pylint` as part of your python li
 
 #### Add goals
 
-The goals that are available out of the box are found in `build-support/make/core/<language>/`.
+The goals that are available out of the box are found in `build-support/alpha-build/core/<language>/`.
 You can extend/replace the core goals for new languages and/or tools by writing `.mk` code in
-`build-support/make/extensions/<language>/` following the examples in `build-support/make/core/`.
+`build-support/alpha-build/extensions/<language>/` following the examples in `build-support/alpha-build/core/`.
 For example, <https://github.com/cristianmatache/workspace> extends AlphaBuild with Prometheus and Alertmanager goals.
 
 #### Update PYTHONPATH
@@ -292,16 +292,16 @@ the PYTHONPATH (i.e. to mark them as sources roots) set `PY_SOURCES_ROOTS` at th
 #### See/Change tools config
 
 Let's say you want to change the way `mypy` is configured to exclude some directory from checking. Then head to
-`build-support/make/config/python.mk` check what is the path to the `mypy` config file, go there and update it.
+`build-support/alpha-build/config/python.mk` check what is the path to the `mypy` config file, go there and update it.
 All other tools work similarly.
 
 #### Third party environments
 
 - **Exact reproduction of the default environment:** The recipes to fully replicate the default environment
-  (mostly using `pip`, `conda` and `npm`) are found in `build-support/make/core/<langugage>/setup.mk`, where they use
-  dependency files and lock files that can be found in `3rdparty/`. In practice, run `make env-default-replicate` inside
-  a conda environment. Also make sure you also have `npm` installed because `markdownlint` and `bats` bash testing
-  framework come from `npm` (if you don't need them no need to worry about `npm` just exclude the `markdown`
+  (mostly using `pip`, `conda` and `npm`) are found in `build-support/alpha-build/core/<langugage>/setup.mk`, where they
+  use dependency files and lock files that can be found in `3rdparty/`. In practice, run `make env-default-replicate`
+  inside a conda environment. Also make sure you also have `npm` installed because `markdownlint` and `bats` bash
+  testing framework come from `npm` (if you don't need them no need to worry about `npm` just exclude the `markdown`
   environment rule from the pre-requisites of `env-default-replicate`)
 - **Create/Upgrade/Edit default environment:** If you want to edit the default environment, for example to add,
   remove, constrain packages edit the `requirements.txt` not the `constraints.txt` file (in `3rdparty/`).
@@ -309,14 +309,14 @@ All other tools work similarly.
   there is no need to temper with the `requirements.txt` files. Then run `make env-default-upgrade` and check the lock
   files back into git.
 - **Add a new environment:** To add a new environment, first add the dependency files (e.g. `requirements.txt`) in
-  `3rdparty/<new-env-name>`, add a new goal in `build-support/make/extensions`. For environment management over time, we
-  strongly encourage maintaining the approach split between creation/upgrade/edit and exact reproduction of
+  `3rdparty/<new-env-name>`, add a new goal in `build-support/alpha-build/extensions`. For environment management over
+  time, we strongly encourage maintaining the approach split between creation/upgrade/edit and exact reproduction of
   environments.
 
 #### Nested Makefiles
 
 Supposing you want to use a different config file for `black` for a project in your monorepo. You would have 2 options:
-change the config file globally from `build-support/make/config/python.mk` (this would affect other projects) or create
+change the config file globally from `build-support/alpha-build/config/python.mk` (this would affect other projects) or create
 another `Makefile` in your specific project if you just want different settings for your little project (whether this
 is a good or a bad idea is more of a philosophical debate, I would argue that globally consistent config files are
 preferable, but I acknowledge that this may be needed sometimes).
@@ -329,7 +329,7 @@ black.%:  # Add this goal to be able to delegate to inner Makefile-s
 fmt-py: black black.my-proj  # Add your custom "black" goals here
 
 # root/my-proj/Makefile
-include build-support/make/core/python/format.mk
+include build-support/alpha-build/core/python/format.mk
 custom-black:
     $(eval targets := $(onpy))
     $(MAKE) black targets="$(on)" BLACK_FLAGS="-S --config my-proj/pyproject.toml"
@@ -408,7 +408,7 @@ like `lint-py` or `lint`.
 - Kotlin:
   - Format: `ktlint`
   - Lint: `ktlint`
-It is very easy to extend this list with another tool, just following the existing examples.
+    It is very easy to extend this list with another tool, just following the existing examples.
 
 ## High-level comparison with Pants, Bazel, Pre-commit and traditional Makefiles
 
@@ -468,15 +468,15 @@ In addition, AlphaBuild requires that the commands it builds are shorter than `g
 ## Detailed comparison: AlphaBuild vs Make vs Pre-commit vs Tox/Nox vs Bazel vs Pants
 
 Most small/medium popular Python open source projects use Make, Pre-commit and/or Tox/Nox with a crushing majority
-for formatting, linting and/or testing and/or publishing. For the same purposes, fewer projects simply use a bunch 
+for formatting, linting and/or testing and/or publishing. For the same purposes, fewer projects simply use a bunch
 of Bash scripts or monorepo-style build tools like Bazel (or Pants, Buck, Please).
-Make, pre-commit, nox/tox work pretty well together in the same repo and are often used so. 
+Make, pre-commit, nox/tox work pretty well together in the same repo and are often used so.
 
-**Note 1:** Every time we talk about Pants we talk about Pants V2, which is a fundamentally different product from 
-Pants V1. Even Twitter gave up on Pants V1 and is moving to Bazel (see 
-https://twitter.com/jin_/status/1255133781876330497).
+**Note 1:** Every time we talk about Pants we talk about Pants V2, which is a fundamentally different product from
+Pants V1. Even Twitter gave up on Pants V1 and is moving to Bazel (see
+<https://twitter.com/jin_/status/1255133781876330497>).
 
-**Note 2:** IMHO Pants (V2) is the best (but not yet perfect) build tool for large monorepos out there and has 
+**Note 2:** IMHO Pants (V2) is the best (but not yet perfect) build tool for large monorepos out there and has
 great potential.
 
 ### Pros and Cons
@@ -511,8 +511,8 @@ great potential.
     - Cross-platform
     - Supports nested Makefiles
   - Cons:
-    - More scalable than pre-commit/tox/nox but not as scalable or hermetic as Bazel/Pants/Buck/Please 
-   (see https://github.com/thought-machine/please#why-please-and-not-make for details).
+    - More scalable than pre-commit/tox/nox but not as scalable or hermetic as Bazel/Pants/Buck/Please
+      (see <https://github.com/thought-machine/please#why-please-and-not-make> for details).
   - Notes: can run pre-commit, tox/nox but can also be run from tox/nox (not from pre-commit though)
 - **Bazel:**
   - Pros:
@@ -537,11 +537,12 @@ great potential.
     - Tool/language support could be better (Pants's support for Python is better than Bazel's though)
     - Has more sophisticated support needs (e.g. dedicated engineers and/or tuned CI infra)
     - Does not readily support the equivalent of nested Makefiles
-   - Notes:
-     - Can be called from within Make
-     - Still need to have BUILD files in every directory (much easier to work with than in Bazel)
+  - Notes:
+    - Can be called from within Make
+    - Still need to have BUILD files in every directory (much easier to work with than in Bazel)
+
 </details>
-   
+
 ### Users by tool
 
 <details>
