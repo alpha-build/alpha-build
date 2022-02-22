@@ -11,7 +11,7 @@ nbstripout
 flynt
 pyupgrade
 shfmt-py
-rstfmt
+rstfmt  # not mature enough yet, to be added
 
 # linters
 flake8
@@ -28,6 +28,7 @@ rstcheck
 # test
 pytest
 coverage
+pytest-cov
 
 # packaging
 pipreqs

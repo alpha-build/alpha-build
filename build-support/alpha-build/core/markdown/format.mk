@@ -9,6 +9,10 @@ ifndef MARKDOWNLINT_BIN
 	MARKDOWNLINT_BIN=markdownlint
 endif
 
+ifndef PRETTIER_BIN
+	PRETTIER_BIN=prettier
+endif
+
 .PHONY: markdownlint-fmt
 markdownlint-fmt:
 	$(eval targets := $(onmd))

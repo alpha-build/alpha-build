@@ -5,6 +5,10 @@
 # - updating the config files in build-support/alpha-build/config/ to configure tools for your own use case
 # - writing a new custom rule, in build-support/alpha-build/extensions/<lang>/ and import it in the main Makefile
 
+ifndef MARKDOWNLINT_BIN
+	MARKDOWNLINT_BIN=markdownlint
+endif
+
 ifndef PRETTIER_BIN
 	PRETTIER_BIN=prettier
 endif
