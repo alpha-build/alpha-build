@@ -28,4 +28,4 @@ clean-whl:
 
 .PHONY: clean-bdist
 clean-bdist:
-	find . -name bdist* -type d -exec rm -rf {} +
+	find . -name "bdist*" -type d -exec rm -rf {} +
