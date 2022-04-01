@@ -24,7 +24,7 @@ ONPY=algo/ iqor app_paper_plane/ utils lib_bzl_utils/ gen_script  # References a
 ONSH=build-support/ deploy-support/ lib_sh_utils/
 ONHS=tutorials_hs/scheme_interpreter
 ONNB=notebooks/
-ONMD=*.md
+ONMD=*.md $(shell find build-support/ -name "*.md")
 ONYML=.ci-azure/ build-support/ deploy-support/ .pre-commit-config.yaml
 ONHTML=iqor app_paper_plane/
 ONCSS=$(ONHTML)
@@ -166,6 +166,7 @@ rm-envs:
 # ------------ SPECIFIC TO AlphaBuild ONLY -------------
 # Code to build and release a new version of AlphaBuild
 build-wheel-core:
+	rm -rf dist/
 	rm alpha_build_core.tar.gz || echo "alpha_build_core.tar.gz does not exist yet"
 	tar -cvzf alpha_build_core.tar.gz build-support/alpha-build/core
 	python build-support/alpha-build/core/setup.py bdist_wheel
@@ -173,11 +174,21 @@ build-wheel-core:
 publish-wheel-core: clean-py build-wheel-core
 	twine upload --repository-url https://test.pypi.org/legacy/ dist/*
 
-build-archive-utils:
-	rm alpha_build_utils.tar.gz || echo "alpha_build_utils.tar.gz does not exist yet"
-	tar -cvzf alpha_build_core.tar.gz build-support/alpha-build/core
+build-wheel-utils:
+	rm -rf dist/
+	rm alpha_build_git_bash_utils.tar.gz || echo "alpha_build_utils.tar.gz does not exist yet"
+	tar -cvzf alpha_build_git_bash_utils.tar.gz build-support/git-bash-integration
+	python build-support/git-bash-integration/setup.py bdist_wheel
+
+publish-wheel-utils: clean-py build-wheel-utils
+	twine upload --repository-url https://test.pypi.org/legacy/ dist/*
+
 
 # Example upgrade script from a monorepo that uses AlphaBuild
 # pip install -i https://test.pypi.org/simple/ alpha-build-core --target tmp/
 # tar -xvf tmp/alpha_build_core.tar.gz
+# rm -rf tmp/
+
+# pip install -i https://test.pypi.org/simple/ alpha-build-git-bash-utils --target tmp/
+# tar -xvf tmp/alpha_build_git_bash_utils.tar.gz
 # rm -rf tmp/
