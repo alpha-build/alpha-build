@@ -25,6 +25,18 @@ REGEX_KT=".*.\.kt"
 IS_WINDOWS_CMD=uname | egrep -i "msys"            # Non-empty if is windows cmd
 IS_WINDOWS_GIT_BASH=uname | egrep -i "mingw|NT-"  # Non-empty if is windows git bash
 IS_MAC=uname | egrep -i "darwin"                  # Non-empty if is mac
+IS_LINUX=uname | egrep -i "linux"                  # Non-empty if is linux
+
+# By default use "python" to call python, but sometimes one may need to invoke tools differently
+python=python
+# In case you want to invoke python tools differently (e.g., python3, or via poetry run) please change the way python
+# is called something. For example:
+# 1. For poetry add this to your Makefile (after including the resolver.mk file)
+# 	python=poetry run python
+# 2. For python3 on Linux, add this to your Makefile (after including the resolver.mk file)
+#	ifneq ($(shell $(IS_LINUX),)  # is Linux
+#	python=python3
+#	endif
 
 ifneq ($(shell command -v gfind),)  # is MacOS (mostly)
 gnu_find=gfind
@@ -145,4 +157,4 @@ onkt=$(call resolve_targets,$(REGEX_KT),$(ONKT),id_func)
 _example-goal:
 	$(eval targets := $(onpy))  # Same as: targets = onpy if targets is None else targets
 	if $(call lang,$(targets),$(REGEX_PY)); then  \
-	python -m mypy $(MYPY_FLAGS) $(targets); fi
+	$(python) -m mypy $(MYPY_FLAGS) $(targets); fi

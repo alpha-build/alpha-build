@@ -14,7 +14,7 @@ endif
 yamllint:
 	$(eval targets := $(onyml))
 	if $(call lang,$(targets),$(REGEX_YML)); then \
-	python -m yamllint $(YAMLLINT_FLAGS) $(targets); fi
+	$(python) -m yamllint $(YAMLLINT_FLAGS) $(targets); fi
 
 .PHONY: prettier-yml-check
 prettier-yml-check:

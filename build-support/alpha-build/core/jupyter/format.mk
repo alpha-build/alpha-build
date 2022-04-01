@@ -9,10 +9,10 @@
 jblack:
 	$(eval targets := $(onnb))
 	if $(call lang,$(targets),$(REGEX_NB)); then \
-  	python -m jupyterblack $(JUPYTERBLACK_FLAGS) $(targets); fi
+  	$(python) -m jupyterblack $(JUPYTERBLACK_FLAGS) $(targets); fi
 
 .PHONY: nbstripout
 nbstripout:
 	$(eval targets := $(onnb))
 	if $(call lang,$(targets),$(REGEX_NB)); then \
-  	find $(targets) -type f -name "*.ipynb" -print | $(gnu_xargs) python -m nbstripout $(NBSTRIPOUT_FLAGS); fi
+  	find $(targets) -type f -name "*.ipynb" -print | $(gnu_xargs) $(python) -m nbstripout $(NBSTRIPOUT_FLAGS); fi
