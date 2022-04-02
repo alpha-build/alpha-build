@@ -9,34 +9,34 @@
 docformatter:
 	$(eval targets := $(onpy))
 	if $(call lang,$(targets),$(REGEX_PY)); then  \
-	python -m docformatter --in-place $(DOCFORMATTER_FLAGS) -r $(targets); fi
+	$(python) -m docformatter --in-place $(DOCFORMATTER_FLAGS) -r $(targets); fi
 
 .PHONY: isort
 isort:
 	$(eval targets := $(onpy))
 	if $(call lang,$(targets),$(REGEX_PY)); then  \
-	python -m isort $(ISORT_FLAGS) $(targets); fi
+	$(python) -m isort $(ISORT_FLAGS) $(targets); fi
 
 .PHONY: autoflake
 autoflake:
 	$(eval targets := $(onpy))
 	if $(call lang,$(targets),$(REGEX_PY)); then  \
-	python -m autoflake --in-place $(AUTOFLAKE_FLAGS) -r $(targets); fi
+	$(python) -m autoflake --in-place $(AUTOFLAKE_FLAGS) -r $(targets); fi
 
 .PHONY: black
 black:
 	$(eval targets := $(onpy))
 	if $(call lang,$(targets),$(REGEX_PY)); then  \
-	python -m black $(BLACK_FLAGS) $(targets); fi
+	$(python) -m black $(BLACK_FLAGS) $(targets); fi
 
 .PHONY: flynt
 flynt:
 	$(eval targets := $(onpy))
 	if $(call lang,$(targets),$(REGEX_PY)); then  \
-	python -m flynt $(FLYNT_FLAGS) $(targets); fi
+	$(python) -m flynt $(FLYNT_FLAGS) $(targets); fi
 
 .PHONY: pyupgrade
 pyupgrade:
 	$(eval targets := $(onpy))
 	if $(call lang,$(targets),$(REGEX_PY)); then  \
-	find $(targets) -type f -regex $(REGEX_PY) -print0 | $(gnu_xargs) -0 python -m pyupgrade $(PYUPGRADE_FLAGS) ; fi
+	find $(targets) -type f -regex $(REGEX_PY) -print0 | $(gnu_xargs) -0 $(python) -m pyupgrade $(PYUPGRADE_FLAGS) ; fi

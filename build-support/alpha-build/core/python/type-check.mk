@@ -9,4 +9,4 @@
 mypy:
 	$(eval targets := $(onpy))
 	if $(call lang,$(targets),$(REGEX_PY)); then  \
-	python -m mypy $(MYPY_FLAGS) $(targets); fi
+	$(python) -m mypy $(MYPY_FLAGS) $(targets); fi

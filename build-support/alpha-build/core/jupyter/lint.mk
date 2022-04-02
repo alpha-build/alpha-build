@@ -9,10 +9,10 @@
 jblack-check:
 	$(eval targets := $(onnb))
 	if $(call lang,$(targets),$(REGEX_NB)); then \
-  	python -m jupyterblack --check $(JUPYTERBLACK_FLAGS) $(targets); fi
+  	$(python) -m jupyterblack --check $(JUPYTERBLACK_FLAGS) $(targets); fi
 
 .PHONY: flake8-nb
 flake8-nb:
 	$(eval targets := $(onnb))
 	if $(call lang,$(targets),$(REGEX_NB)); then \
-  	find $(targets) -type f -iname "*.ipynb" | $(gnu_xargs) python -m flake8_nb $(FLAKE8_NB_FLAGS); fi
+  	find $(targets) -type f -iname "*.ipynb" | $(gnu_xargs) $(python) -m flake8_nb $(FLAKE8_NB_FLAGS); fi
