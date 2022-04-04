@@ -81,7 +81,7 @@ lang = [[ ! -z $(if $(shell echo "$1"),$(if $(shell $(gnu_find) $(call solve_ali
 # NOTE 2: It is safer to use find ... -wholename ... with full paths because otherwise find prepends the find argument
 #			to the result that we are filtering for. That is, find . -wholename README.md does not return anything but
 #			find . -wholename ./README.md does.
-intersect_paths = $(shell $(gnu_find) $(shell realpath $1) $(foreach file,$2, -wholename $(shell realpath $(file)) -o) -wholename XYZ | $(gnu_xargs) realpath --relative-to=.)
+intersect_paths = $(shell $(gnu_find) $(shell realpath $1) $(foreach file,$2, -wholename $(shell realpath $(file)) -o) -wholename XYZ | $(gnu_xargs) --no-run-if-empty realpath --relative-to=.)
 intersect_files = $(call intersect_paths,$(call solve_aliases,$1),$2)
 
 # Function:
