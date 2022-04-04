@@ -76,8 +76,13 @@ lang = [[ ! -z $(if $(shell echo "$1"),$(if $(shell $(gnu_find) $(call solve_ali
 # Args:
 #	- $1: a list of directories separated by spaces (as this is bash)
 #   - $2: a list of files (paths starting from repo root)
-# NOTE: Does not work if paths/file names contain spaces, XYZ is some file that does not exist, used to have a value for the final -o
-intersect_files = $(shell $(gnu_find) $(call solve_aliases,$1) $(foreach file,$2, -wholename $(file) -o) -wholename XYZ)
+# NOTE 1: Does not work if paths/file names contain spaces, XYZ is some file that does not exist, used to have a value
+#			for the final -o
+# NOTE 2: It is safer to use find ... -wholename ... with full paths because otherwise find prepends the find argument
+#			to the result that we are filtering for. That is, find . -wholename README.md does not return anything but
+#			find . -wholename ./README.md does.
+intersect_paths = $(shell $(gnu_find) $(shell realpath $1) $(foreach file,$2, -wholename $(shell realpath $(file)) -o) -wholename XYZ | $(gnu_xargs) realpath --relative-to=.)
+intersect_files = $(call intersect_paths,$(call solve_aliases,$1),$2)
 
 # Function:
 # 	- resolve_since (only defined if since=<git-revision> is provided from the console)
@@ -93,7 +98,7 @@ intersect_files = $(shell $(gnu_find) $(call solve_aliases,$1) $(foreach file,$2
 # Args:
 # 	- $1: language regex
 # 	- $2: default targets e.g. $(ONPY)
-# 	- $3: file filter for since syntax
+# 	- $3: function that filters out targets (files or dirs), by default nothing is filtered out
 # NOTE 1: Does not work if the command built is longer than `getconf ARG_MAX` characters
 #         Especially relevant when running with since=... (e.g. since=HEAD~10000) over all the files (no on=...)
 # NOTE 2: intersect_files would:
@@ -106,21 +111,25 @@ ifneq ($(since),)
 		# Run over all the files change since=... that appear in on=...
 		# (results in different targets for each language)
 		resolve_targets=$(call intersect_files,$(call solve_aliases,$(on)),$(call $3,$(call resolve_since,$1)))
+		resolve_pre_commit_targets=$(call resolve_targets,$1,$2,$3)
 	else
 		# Run over all the files change since=... that appear in the defaults (i.e. in the ON<LANG> variables)
 		# (results in different targets for each language)
 		resolve_targets=$(call intersect_files,$(call solve_aliases,$2),$(call $3,$(call resolve_since,$1)))
+		resolve_pre_commit_targets=$(call resolve_targets,$1,$2,$3)
 	endif
 else
 	ifneq ($(on),)
 		# Run over the targets specified in on=...
 		# (results in the same targets for all languages)
 		# It is better not to enumerate all the files because if "on" comprises many many files we may hit the limit
-		resolve_targets=$(call solve_aliases,$(on))
+		resolve_targets=$(call $3,$(call solve_aliases,$(on)))
+		resolve_pre_commit_targets=$(call $3,$(shell $(gnu_find) $(call solve_aliases,$(on)) -type f))
 	else
 		# Run over the default targets
 		# (results in different targets for each language)
-		resolve_targets=$(call solve_aliases,$2)
+		resolve_targets=$(call $3,$(call solve_aliases,$2))
+		resolve_pre_commit_targets=--all-files
 	endif
 endif
 
@@ -140,6 +149,7 @@ oncss=$(call resolve_targets,$(REGEX_CSS),$(ONCSS),id_func)
 onrst=$(call resolve_targets,$(REGEX_RST),$(ONRST),id_func)
 onswift=$(call resolve_targets,$(REGEX_SWIFT),$(ONSWIFT),id_func)
 onkt=$(call resolve_targets,$(REGEX_KT),$(ONKT),id_func)
+onprecommit=$(call resolve_pre_commit_targets,"*",.,id_func)  # Default targets are defined in .pre-commit-config.yaml
 
 
 # !!! Example goal implementation explained !!!
