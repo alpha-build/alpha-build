@@ -111,12 +111,12 @@ ifneq ($(since),)
 		# Run over all the files change since=... that appear in on=...
 		# (results in different targets for each language)
 		resolve_targets=$(call intersect_files,$(call solve_aliases,$(on)),$(call $3,$(call resolve_since,$1)))
-		resolve_pre_commit_targets=$(call resolve_targets,$1,$2,$3)
+		resolve_pre_commit_targets=--files $(call resolve_targets,$1,$2,$3)
 	else
 		# Run over all the files change since=... that appear in the defaults (i.e. in the ON<LANG> variables)
 		# (results in different targets for each language)
 		resolve_targets=$(call intersect_files,$(call solve_aliases,$2),$(call $3,$(call resolve_since,$1)))
-		resolve_pre_commit_targets=$(call resolve_targets,$1,$2,$3)
+		resolve_pre_commit_targets=--files $(call resolve_targets,$1,$2,$3)
 	endif
 else
 	ifneq ($(on),)
@@ -124,7 +124,7 @@ else
 		# (results in the same targets for all languages)
 		# It is better not to enumerate all the files because if "on" comprises many many files we may hit the limit
 		resolve_targets=$(call $3,$(call solve_aliases,$(on)))
-		resolve_pre_commit_targets=$(call $3,$(shell $(gnu_find) $(call solve_aliases,$(on)) -type f))
+		resolve_pre_commit_targets=--files $(call $3,$(shell $(gnu_find) $(call solve_aliases,$(on)) -type f))
 	else
 		# Run over the default targets
 		# (results in different targets for each language)
