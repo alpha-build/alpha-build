@@ -25,7 +25,7 @@ REGEX_KT=".*.\.kt"
 IS_WINDOWS_CMD=uname | egrep -i "msys"            # Non-empty if is windows cmd
 IS_WINDOWS_GIT_BASH=uname | egrep -i "mingw|NT-"  # Non-empty if is windows git bash
 IS_MAC=uname | egrep -i "darwin"                  # Non-empty if is mac
-IS_LINUX=uname | egrep -i "linux"                  # Non-empty if is linux
+IS_LINUX=uname | egrep -i "linux"                 # Non-empty if is linux
 
 # By default use "python" to call python, but sometimes one may need to invoke tools differently
 python=python
