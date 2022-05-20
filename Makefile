@@ -57,6 +57,7 @@ test-sh: bats
 
 # Multi language
 include build-support/alpha-build/core/multi/env.mk
+include build-support/alpha-build/core/multi/pre-commit.mk
 
 # Python
 #export MYPYPATH := $(PYTHONPATH)  # Uncomment to set MYPYPATH to be the same as PYTHONPATH
