@@ -11,4 +11,3 @@ pytest:
 	$(eval marks := $(DEFAULT_PYTEST_MARKS))
 	if $(call lang,$(targets),$(REGEX_PY)); then \
   	$(python) -m pytest --rootdir=. -m $(marks) $(PYTEST_FLAGS) $(targets); fi  # Add pytest-cov to flags for coverage
-

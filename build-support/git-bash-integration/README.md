@@ -2,7 +2,7 @@
 
 ## Description
 
-Utils that don't come with Git Bash by default, like `GNU Make`, `rsync`, `zstd
+Utils that don't come with Git Bash by default, like `GNU Make`, `rsync`, \`zstd
 
 ## Instructions
 
@@ -13,7 +13,7 @@ Utils that don't come with Git Bash by default, like `GNU Make`, `rsync`, `zstd
    pip install alpha-build-git-bash-utils --target tmp/
    ```
 
-2. Unpack the code:
+1. Unpack the code:
 
    ```bash
    tar -xvf tmp/alpha_build_git_bash_utils.tar.gz
@@ -21,15 +21,15 @@ Utils that don't come with Git Bash by default, like `GNU Make`, `rsync`, `zstd
 
    This will put the code in `<repo-root>/build-support/git-bash-integration/`.
 
-3. Remove the temporary download location:
+1. Remove the temporary download location:
 
    ```bash
    rm -rf tmp/
    ```
 
-4. Run Git Bash as administrator and install the relevant utils.
+1. Run Git Bash as administrator and install the relevant utils.
 
    ```bash
    # from repo root
-   ./build-support/install_<utility>.sh
+   ./build-support/git-bash-integration/install_<utility>.sh
    ```
