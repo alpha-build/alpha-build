@@ -1,3 +1,4 @@
+# pylint: disable=all
 from pathlib import Path
 
 from setuptools import setup
@@ -9,7 +10,7 @@ COMPRESSED_CORE = REPO_ROOT / "alpha_build_core.tar.gz"
 
 setup(
     name="alpha-build-core",
-    version="0.1.4",
+    version="0.1.5",
     description="AlphaBuild's core",
     long_description=README.read_text(),
     long_description_content_type="text/markdown",

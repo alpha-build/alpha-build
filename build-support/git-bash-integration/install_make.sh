@@ -2,11 +2,11 @@
 
 # !!!! NOTE: Run Git bash as administrator to run this script!!!!!
 
-CHECKOUT_ROOT=$(realpath "${CHECKOUT_ROOT:-$(git rev-parse --show-toplevel)}")
+GIT_BASH_UTILS_LIB_ROOT=$(realpath "${CHECKOUT_ROOT:-$(dirname "${BASH_SOURCE[0]}")}")
 
 # Imports
 # shellcheck source=build-support/git-bash-integration/utils.sh
-source "$CHECKOUT_ROOT/build-support/git-bash-integration/utils.sh"
+source "$GIT_BASH_UTILS_LIB_ROOT/utils.sh"
 
 # https://gist.github.com/evanwill/0207876c3243bbb6863e65ec5dc3f058
 echo "Installing make"
@@ -17,11 +17,11 @@ unzip install_make.zip -d install_make
 rm install_make.zip
 
 ensure_mingw64_dir() {
-	if [ ! -d "/mingw64/$1" ]; then
-		CREATE_DIR="mkdir /mingw64/$1"
-		echo "$CREATE_DIR"
-		eval "$CREATE_DIR"
-	fi
+    if [ ! -d "/mingw64/$1" ]; then
+        CREATE_DIR="mkdir /mingw64/$1"
+        echo "$CREATE_DIR"
+        eval "$CREATE_DIR"
+    fi
 }
 
 ensure_mingw64_dir bin

@@ -19,7 +19,7 @@ class PyLibrary:
 
     def make_py_typed(self) -> None:
         file = self.sources_root / self.lib_name / 'py.typed'
-        file.write_text('')
+        file.write_text('', encoding='utf-8')
 
     def make_setup_py(self) -> str:
         contents = dedent(
@@ -53,7 +53,7 @@ class PyLibrary:
         """
         )
         file = self.sources_root / 'setup.py'
-        file.write_text(contents[1:])
+        file.write_text(contents[1:], encoding='utf-8')
         return contents
 
 

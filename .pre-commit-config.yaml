@@ -1,0 +1,101 @@
+---
+repos:
+  # YAML auto-formatters
+  - repo: https://github.com/lyz-code/yamlfix/
+    rev: 0.9.0
+    hooks:
+      # On Windows, this writes \r\n newlines that need to be fixed by the next hook
+      - id: yamlfix
+  # GENERAL
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.2.0
+    hooks:
+      - id: end-of-file-fixer
+      - id: trailing-whitespace
+      - id: mixed-line-ending
+        args: [--fix=lf]
+      - id: debug-statements
+      - id: check-ast
+      - id: check-docstring-first
+      - id: check-yaml
+      - id: check-toml
+      - id: check-added-large-files
+  # Python auto-formatters
+  - repo: https://github.com/PyCQA/autoflake
+    rev: v1.4
+    hooks:
+      - id: autoflake
+        args:
+          - --in-place
+          - --remove-all-unused-imports
+          - --remove-unused-variables
+  - repo: https://github.com/PyCQA/docformatter
+    rev: v1.4
+    hooks:
+      - id: docformatter
+        args:
+          - --in-place
+          - --wrap-summaries=120
+          - --wrap-descriptions=120
+  - repo: https://github.com/ikamensh/flynt
+    rev: '0.76'
+    hooks:
+      - id: flynt
+  - repo: https://github.com/pycqa/isort
+    rev: 5.10.1
+    hooks:
+      - id: isort
+        name: isort (python)
+        args: [--settings-path=pyproject.toml]
+  - repo: https://github.com/psf/black
+    rev: 22.3.0
+    hooks:
+      - id: black
+        args: [--config=pyproject.toml]
+  # Python linters
+  - repo: https://github.com/pycqa/flake8
+    rev: 4.0.1
+    hooks:
+      - id: flake8
+  - repo: https://github.com/pre-commit/mirrors-mypy
+    rev: v0.950
+    hooks:
+      - id: mypy
+        exclude: .*setup.py
+        additional_dependencies:
+          - sqlalchemy[mypy]
+          - pydantic
+  - repo: https://github.com/Lucas-C/pre-commit-hooks-bandit
+    rev: v1.0.6
+    hooks:
+      - id: python-bandit-vulnerability-check
+        name: bandit
+        args: [--configfile pyproject.toml]
+  - repo: https://github.com/pycqa/pylint
+    rev: v2.14.0-b1
+    hooks:
+      - id: pylint
+        args: [--rcfile=pyproject.toml]
+  # JUPYTER auto-formatters
+  - repo: https://github.com/kynan/nbstripout
+    rev: 0.5.0
+    hooks:
+      - id: nbstripout
+  # BASH auto-formatters
+  - repo: https://github.com/cisagov/pre-commit-shfmt
+    rev: v0.0.2
+    hooks:
+      - id: shfmt
+        args: [-i=4]
+  # BASH linter
+  - repo: https://github.com/shellcheck-py/shellcheck-py
+    rev: v0.8.0.4
+    hooks:
+      - id: shellcheck
+        args: [-x]
+  # YAML linters
+  - repo: https://github.com/adrienverge/yamllint.git
+    rev: v1.26.3
+    hooks:
+      - id: yamllint
+        args: [-c=.yamllint.yaml]
