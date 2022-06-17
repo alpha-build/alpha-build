@@ -10,7 +10,8 @@ BANDIT_CONFIG=build-support/python/tools-config/.bandit.yml
 PYTEST_CONFIG=build-support/python/tools-config/pyproject.toml
 
 # Tools config
-DEFAULT_PYTEST_MARKS=""
+#DEFAULT_PYTEST_MARKS=""
+#DEFAULT_PYTEST_CASES=""
 DEFAULT_THIRD_PARTY_DEPS_FILE=$(DEFAULT_PYTHON_ENV)/requirements.txt
 DEFAULT_FIRST_PARTY_DEPS_FILE=build-support/python/packaging/first-party-libs.txt
 

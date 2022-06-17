@@ -141,7 +141,8 @@ lint-sh: shellcheck shfmt-check  # where shellcheck and shfmt-check run the resp
 lint-sh: shellcheck
 ```
 
-Per-tool config files (e.g. `mypy.ini`, `pyproject.toml`) are found in `build-support/<language>/tools-config/`.
+Per-tool config files (e.g. `mypy.ini`, `pyproject.toml`) are typically places in
+`build-support/<language>/tools-config/`.
 
 ### Targets - what files we run the tools on
 
@@ -240,26 +241,13 @@ If you want to learn more about the API of a specific goal, check the source cod
     ![external-tool](build-support/ide-integration/windows/example-setup-windows-pycharm.png)
     ![external-tool-keymap](build-support/ide-integration/windows/example-setup-windows-pycharm-keymap.png)
 
-## Example monorepo running AlphaBuild
-
-To see AlphaBuild at work in a real-world example check <https://github.com/cristianmatache/workspace> out.
-Workspace extends AlphaBuild with support for Prometheus, Alertmanager and Grafana.
 
 ## Common admin actions
 
 ### Installation
 
-To add this build system to an existing repo, one needs to simply copy over `build-support/`, `3rdparty/`, `Makefile`.
-
-Create a conda environment, activate it and `make env-default-replicate`, as a one-off, to set up the python, markdown
-and bash environments (mostly pip/npm install-s).
-
-#### CI/CD setup
-
-Since all CI/CD pipelines essentially rely on running some scripts in a certain order, AlphaBuild can be called
-directly from any CI/CD pipeline regardless of CI/CD technology provider. AlphaBuild helps with ensuring that both the
-CI pipelines and developers run the exact same commands. Since, one can easily select targets within the repo, setting
-pipelines on a per sub-project basis, is effortless with AlphaBuild.
+Use this `cookiecutter` template: https://github.com/cristianmatache/cookiecutter-alpha-build-polyrepo-py.
+Feel free to extend the project such that it becomes a monorepo.
 
 #### Upgrade
 
@@ -271,6 +259,14 @@ pip install alpha-build-core --target tmp/
 tar -xvf tmp/alpha_build_core.tar.gz
 rm -rf tmp/
 ```
+
+#### CI/CD setup
+
+Since all CI/CD pipelines essentially rely on running some scripts in a certain order, AlphaBuild can be called
+directly from any CI/CD pipeline regardless of CI/CD technology provider. AlphaBuild helps with ensuring that both the
+CI pipelines and developers run the exact same commands. Since, one can easily select targets within the repo, setting
+pipelines on a per sub-project basis, is effortless with AlphaBuild.
+
 
 #### Change goal definitions
 
@@ -361,10 +357,13 @@ If you like AlphaBuild, wear the Markdown badge on your repo:
 ## Out-of-the-box tools by language
 
 AlphaBuild has recipes to run the following tools. However, if you don't use some of them you don't need to have them
-installed in your enviornments. For example, let's say you don't use `bandit` then you don't need to have `bandit`
+installed in your environments. For example, let's say you don't use `bandit` then you don't need to have `bandit`
 installed in your environment provided that you are not using the `bandit` goal per-se or as part of a composite goal
 like `lint-py` or `lint`.
 
+<!-- markdownlint-disable MD033 -->
+<details>
+  <summary>Click to expand and see the supported tools!</summary>
 - Python:
   - Setup: `pip` / `conda`
   - Type-check: `mypy`
@@ -386,8 +385,10 @@ like `lint-py` or `lint`.
 - YAML:
   - Setup: `pip`
   - Lint: `yamllint`, `prettier`
-- Prometheus and Alertmanager YAML:
-  - Lint: `promtool check`, `amtool check-config`
+
+[//]: # (- Prometheus and Alertmanager YAML:)
+
+[//]: # (  - Lint: `promtool check`, `amtool check-config`)
 - Markdown:
   - Setup: `npm`
   - Format + Lint: `markdownlint`, `prettier`
@@ -409,6 +410,14 @@ like `lint-py` or `lint`.
   - Format: `ktlint`
   - Lint: `ktlint`
     It is very easy to extend this list with another tool, just following the existing examples.
+</details>
+<!-- markdownlint-enable MD033 -->
+
+## Example monorepo running AlphaBuild
+
+To see AlphaBuild at work in a real-world example check <https://github.com/cristianmatache/workspace> out.
+Workspace extends AlphaBuild with support for Prometheus, Alertmanager and Grafana.
+
 
 ## High-level comparison with Pants, Bazel, Pre-commit and traditional Makefiles
 
@@ -452,10 +461,10 @@ custom capabilities not yet available in Pants (e.g. linting notebooks, markdown
 make lint on=my-dir/
 ```
 
-Pre-commit and typical usages of Make work exceptionally well on small projects but they don't really scale well to
-multi-projects monorepos. The build system proposed here, already incorporates `pre-commit` and is obviously compatible
-with any existing Makefiles. This approach simply takes the idea of advanced target selection and ports it over to
-classical techniques like pre-commit and Make.
+Bare `pre-commit` and typical usages of Make work exceptionally well on small projects, but they don't really scale
+well to multi-projects monorepos. The build system proposed here, already incorporates `pre-commit` and is obviously
+compatible with any existing Makefiles. This approach simply takes the idea of advanced target selection and ports it
+over to classical techniques like pre-commit and Make.
 
 ## Limitations
 
@@ -497,10 +506,11 @@ great potential.
 - **Pre-commit:**
   - Pros:
     - Great to manage git hooks (as the name implies)
-    - Can run over all files or over a specific set of files (slightly more advanced target selection)
+    - Can run over all files or over a specific set of files but not directories
+    (slightly more advanced target selection)
     - Sort of incremental
   - Cons:
-    - Does not work on Windows (docs say it doesn't but in fact it does partly)
+    - Does not work on Windows (docs say it doesn't but in fact it does partly) \[EDIT this is no longer the case.\]
     - Typically, very much geared towards format and lint.
   - Notes: can be called from within Make
 - **Make:**
