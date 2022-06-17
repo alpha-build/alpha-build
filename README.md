@@ -364,6 +364,7 @@ like `lint-py` or `lint`.
 <!-- markdownlint-disable MD033 -->
 <details>
   <summary>Click to expand and see the supported tools!</summary>
+
 - Python:
   - Setup: `pip` / `conda`
   - Type-check: `mypy`
