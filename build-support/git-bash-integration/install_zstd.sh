@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-GIT_BASH_UTILS_LIB_ROOT=$(realpath "${CHECKOUT_ROOT:-$(dirname "${BASH_SOURCE[0]}")}")
+GIT_BASH_UTILS_LIB_ROOT=$(realpath "${GIT_BASH_UTILS_LIB_ROOT:-$(dirname "${BASH_SOURCE[0]}")}")
 
 # Imports
 # shellcheck source=build-support/git-bash-integration/utils.sh

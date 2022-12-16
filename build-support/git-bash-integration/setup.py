@@ -12,7 +12,7 @@ README = REPO_ROOT / "build-support" / "git-bash-integration" / "README.md"
 
 setup(
     name="alpha-build-git-bash-utils",
-    version="0.0.4",
+    version="0.0.5",
     description="AlphaBuild's utils for Git Bash on Windows",
     long_description=README.read_text(),
     long_description_content_type="text/markdown",
