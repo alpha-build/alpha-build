@@ -166,13 +166,19 @@ rm-envs:
 
 # ------------ SPECIFIC TO AlphaBuild ONLY -------------
 # Code to build and release a new version of AlphaBuild
-build-wheel-core:
+core=build-support/alpha-build/core
+
+build-core-wheels:
 	rm -rf dist/
 	rm alpha_build_core.tar.gz || echo "alpha_build_core.tar.gz does not exist yet"
-	tar -cvzf alpha_build_core.tar.gz build-support/alpha-build/core
+	tar -cvzf alpha_build_core.tar.gz $(core)
+	tar -cvzf alpha_build_lite_py.tar.gz \
+	$(core)/*.mk $(core)/setup_lite_py.py \
+	$(core)/multi/pre-commit.mk $(core)/python/clean.mk $(core)/python/pythonpath.mk  $(core)/python/test.mk
 	python build-support/alpha-build/core/setup.py bdist_wheel
+	python build-support/alpha-build/core/setup_lite_py.py bdist_wheel
 
-publish-wheel-core: clean-py build-wheel-core
+publish-wheel-core: clean-py build-core-wheels
 	twine upload --repository-url https://test.pypi.org/legacy/ dist/*
 
 build-wheel-utils:
