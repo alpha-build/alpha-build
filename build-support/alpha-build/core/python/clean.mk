@@ -29,3 +29,16 @@ clean-whl:
 .PHONY: clean-bdist
 clean-bdist:
 	find . -name "bdist*" -type d -exec rm -rf {} +
+
+.PHONY: clean-pycache
+clean-pycache:
+	find . -name __pycache__ -type d -exec rm -rf {} +
+
+.PHONE: clean-ruff
+clean-ruff:
+	rm -rf .ruff_cache
+
+.PHONY: clean-numba
+clean-numba:
+	$(eval targets := $(onpy))
+	find $(targets) -type f -name *.nb? -print0 | $(gnu_xargs) -0 rm -f;
