@@ -14,7 +14,7 @@ setup(
     description="AlphaBuild's core",
     long_description=README.read_text(),
     long_description_content_type="text/markdown",
-    url="https://github.com/cristianmatache/alpha-build",
+    url="https://github.com/alpha-build/alpha-build",
     author="Cristian Matache",
     # author_email="",
     license="MIT",

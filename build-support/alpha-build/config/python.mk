@@ -8,6 +8,7 @@ ISORT_CONFIG=build-support/python/tools-config/pyproject.toml
 BLACK_CONFIG=build-support/python/tools-config/pyproject.toml
 BANDIT_CONFIG=build-support/python/tools-config/.bandit.yml
 PYTEST_CONFIG=build-support/python/tools-config/pyproject.toml
+RUFF_CONFIG=build-support/python/tools-config/pyproject.toml
 
 # Tools config
 #DEFAULT_PYTEST_MARKS=""
@@ -26,3 +27,4 @@ PYLINT_FLAGS=--rcfile=$(PYLINT_CONFIG)
 PYTEST_FLAGS=-c $(PYTEST_CONFIG)
 MYPY_FLAGS=--config-file $(MYPY_CONFIG)
 PIPREQS_FLAGS=--print
+RUFF_FLAGS=--config $(RUFF_CONFIG)
